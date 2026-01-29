@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16
+    platform: linux/arm64/v8
+    environment:
+      POSTGRES_USER: marquez
+      POSTGRES_PASSWORD: marquez
+      POSTGRES_DB: marquez
+    ports:
+      - "6543:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U marquez -d marquez"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    restart: unless-stopped
+
+  marquez:
+    image: marquezproject/marquez:0.46.0
+    platform: linux/amd64
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      MARQUEZ_DB_URL: jdbc:postgresql://postgres:5432/marquez
+      MARQUEZ_DB_USER: marquez
+      MARQUEZ_DB_PASSWORD: marquez
+      MARQUEZ_PORT: "5000"
+      LOG_LEVEL: "INFO"
+    ports:
+      - "4601:5000"  # API endpoint
+      - "4602:5001"  # Admin/health endpoint
+    restart: unless-stopped
+
+  marquez-web:
+    image: marquezproject/marquez-web:0.46.0
+    platform: linux/amd64
+    depends_on:
+      marquez:
+        condition: service_started
+    environment:
+      WEB_PORT: "3000"
+      MARQUEZ_HOST: marquez
+      MARQUEZ_PORT: "5000"
+    ports:
+      - "3601:3000"  # Web UI
+    restart: unless-stopped
+
+volumes:
+  pgdata:

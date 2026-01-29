@@ -1,0 +1,10 @@
+data/
+proposal/
+__pycache__
+*.pyc
+logs/
+.vscode/
+src/lineage/final_dag_outputs
+src/lineage/output
+tests/
+poetry.lock
