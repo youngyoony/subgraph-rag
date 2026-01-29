@@ -1,10 +1,8 @@
-data/
-proposal/
-__pycache__
+__pycache__/
 *.pyc
-logs/
+.ipynb_checkpoints/
+.env
+*.egg-info/
+.venv/
 .vscode/
-src/lineage/final_dag_outputs
-src/lineage/output
-tests/
-poetry.lock
+logs/

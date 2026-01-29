@@ -1,0 +1,29 @@
+{
+  "export_timestamp": "20251124_021547",
+  "graph_stats": {
+    "total_nodes": 213,
+    "total_edges": 261,
+    "by_layer": {
+      "unknown": 64,
+      "bronze": 48,
+      "gold": 70,
+      "silver": 31
+    },
+    "by_namespace": {
+      "bigquery": 13,
+      "file": 200
+    },
+    "is_dag": true
+  },
+  "layers": {
+    "bronze": 48,
+    "silver": 31,
+    "gold": 70,
+    "unknown": 64
+  },
+  "namespaces": [
+    "file",
+    "bigquery"
+  ],
+  "ready_for_rag": true
+}

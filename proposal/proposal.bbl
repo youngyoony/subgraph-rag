@@ -1,0 +1,52 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bhardwaj et~al.(2015)Bhardwaj, Bhattacherjee, Chavan, Deshpande, Elmore, Madden, and Parameswaran]{bhardwaj2015datahub}
+Anant Bhardwaj, Souvik Bhattacherjee, Amit Chavan, Amol Deshpande, Aaron~J. Elmore, Samuel Madden, and Aditya Parameswaran.
+\newblock Datahub: Collaborative data science \& dataset version management at scale.
+\newblock In \emph{Proceedings of the 7th Biennial Conference on Innovative Data Systems Research (CIDR)}, Asilomar, California, USA, January 2015.
+\newblock URL \url{http://cidrdb.org/cidr2015/Papers/CIDR15_Paper2.pdf}.
+\newblock CIDR 2015.
+
+\bibitem[Chen et~al.(2024)Chen, Zhao, Li, Zhang, Long, and Zhou]{CHEN20241}
+Yunpeng Chen, Ying Zhao, Xuanjing Li, Jiang Zhang, Jiang Long, and Fangfang Zhou.
+\newblock An open dataset of data lineage graphs for data governance research.
+\newblock \emph{Visual Informatics}, 8\penalty0 (1):\penalty0 1--5, 2024.
+\newblock ISSN 2468-502X.
+\newblock \doi{https://doi.org/10.1016/j.visinf.2024.01.001}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S2468502X24000020}.
+
+\bibitem[Hu et~al.(2025)Hu, Lei, Zhang, Pan, Ling, and Zhao]{hu-etal-2025-grag}
+Yuntong Hu, Zhihan Lei, Zheng Zhang, Bo~Pan, Chen Ling, and Liang Zhao.
+\newblock {GRAG}: Graph retrieval-augmented generation.
+\newblock In Luis Chiruzzo, Alan Ritter, and Lu~Wang, editors, \emph{Findings of the Association for Computational Linguistics: NAACL 2025}, pages 4145--4157, Albuquerque, New Mexico, April 2025. Association for Computational Linguistics.
+\newblock ISBN 979-8-89176-195-7.
+\newblock \doi{10.18653/v1/2025.findings-naacl.232}.
+\newblock URL \url{https://aclanthology.org/2025.findings-naacl.232/}.
+
+\bibitem[Johnson et~al.(2023)Johnson, Bulgarelli, Shen, Gayles, Shammout, Horng, Pollard, Hao, Moody, Gow, Lehman, Celi, and Mark]{johnson_mimic-iv_2023}
+Alistair E.~W. Johnson, Lucas Bulgarelli, Lu~Shen, Alvin Gayles, Ayad Shammout, Steven Horng, Tom~J. Pollard, Sicheng Hao, Benjamin Moody, Brian Gow, Li-wei~H. Lehman, Leo~A. Celi, and Roger~G. Mark.
+\newblock {MIMIC}-{IV}, a freely accessible electronic health record dataset.
+\newblock \emph{Scientific Data}, 10\penalty0 (1):\penalty0 1, January 2023.
+\newblock ISSN 2052-4463.
+\newblock \doi{10.1038/s41597-022-01899-x}.
+\newblock URL \url{https://doi.org/10.1038/s41597-022-01899-x}.
+
+\bibitem[Ma et~al.(2024)Ma, Cao, Dong, Tian, Wang, Xiong, and Sun]{ma_mlmd_2024}
+Jiaxuan Ma, Bin Cao, Shuya Dong, Yuan Tian, Menghuan Wang, Jie Xiong, and Sheng Sun.
+\newblock {MLMD}: a programming-free {AI} platform to predict and design materials.
+\newblock \emph{npj Computational Materials}, 10\penalty0 (1):\penalty0 59, March 2024.
+\newblock ISSN 2057-3960.
+\newblock \doi{10.1038/s41524-024-01243-4}.
+\newblock URL \url{https://doi.org/10.1038/s41524-024-01243-4}.
+
+\bibitem[{ScienceDirect}(2024)]{sciencedirect2024}
+{ScienceDirect}.
+\newblock Nyc taxi + weather dataset: Integrated mobility and environmental analytics.
+\newblock \emph{Journal of Big Data Applications}, 12\penalty0 (3):\penalty0 145--162, 2024.
+
+\end{thebibliography}

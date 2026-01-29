@@ -1,0 +1,735 @@
+{
+  "notebook": "4_provider_performance_network",
+  "description": "Provider Performance & Network Analytics - Vertically Complex Provider Intelligence Pipeline with 15 Gold Layers → 4 Final Metrics",
+  "transformations": [
+    {
+      "output": "silver_provider_demographics",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.provider",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.care_site"
+      ],
+      "inputs": ["bronze_provider", "bronze_care_site"],
+      "operations": [
+        {
+          "op": "join",
+          "left_table": "bronze_provider",
+          "right_table": "bronze_care_site",
+          "on": "care_site_id",
+          "how": "left"
+        },
+        {
+          "op": "select",
+          "columns": ["provider_id", "provider_name", "npi", "dea", "specialty_concept_id", "specialty_source_value", "care_site_id", "year_of_birth", "gender_concept_id", "care_site_name", "place_of_service_concept_id"]
+        },
+        {
+          "op": "withColumn",
+          "column": "processed_timestamp",
+          "expression": "F.lit(datetime.now().isoformat())"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 1: Provider demographics enriched with care site information"
+    },
+    {
+      "output": "silver_clinical_activity",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence"
+      ],
+      "inputs": ["bronze_procedure", "bronze_drug", "bronze_condition"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["provider_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "procedure_count", "function": "count(procedure)"},
+            {"alias": "unique_patients_procedures", "function": "countDistinct(person_id)"},
+            {"alias": "procedure_variety", "function": "countDistinct(procedure_concept_id)"},
+            {"alias": "drug_count", "function": "count(drug)"},
+            {"alias": "unique_patients_drugs", "function": "countDistinct(person_id)"},
+            {"alias": "drug_variety", "function": "countDistinct(drug_concept_id)"},
+            {"alias": "condition_count", "function": "count(condition)"},
+            {"alias": "unique_patients_conditions", "function": "countDistinct(person_id)"},
+            {"alias": "condition_variety", "function": "countDistinct(condition_concept_id)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "total_encounters",
+          "expression": "procedure_count + drug_count + condition_count"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 2: Provider clinical activity aggregated from procedures, drugs, and conditions"
+    },
+    {
+      "output": "silver_patient_outcomes",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.death",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence"
+      ],
+      "inputs": ["bronze_person", "bronze_death", "bronze_condition"],
+      "operations": [
+        {
+          "op": "join",
+          "description": "Join person with death and condition data"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["provider_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_patients", "function": "countDistinct(person_id)"},
+            {"alias": "deceased_patients", "function": "count(death)"},
+            {"alias": "avg_condition_duration_days", "function": "avg(datediff(condition_end_date, condition_start_date))"},
+            {"alias": "condition_complexity", "function": "countDistinct(condition_concept_id)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "mortality_rate",
+          "expression": "F.when(F.col('total_patients') > 0, F.col('deceased_patients') / F.col('total_patients')).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 3: Provider patient outcomes including mortality and condition complexity"
+    },
+    {
+      "output": "silver_referral_network",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure"
+      ],
+      "inputs": ["bronze_procedure", "bronze_drug"],
+      "operations": [
+        {
+          "op": "join",
+          "description": "Join procedure and drug providers by patient to detect referral patterns"
+        },
+        {
+          "op": "filter",
+          "condition": "provider_from != provider_to"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["provider_from", "provider_to"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "referral_count", "function": "count(*)"},
+            {"alias": "unique_patients_referred", "function": "countDistinct(person_id)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "network_centrality",
+          "expression": "outbound_referral_count + inbound_referral_count"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 4: Provider referral network with inbound/outbound referral patterns"
+    },
+    {
+      "output": "silver_quality_indicators",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence"
+      ],
+      "inputs": ["bronze_condition"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "next_visit",
+          "expression": "F.lead('condition_start_date').over(W.partitionBy('person_id', 'provider_id').orderBy('condition_start_date'))"
+        },
+        {
+          "op": "withColumn",
+          "column": "days_to_next_visit",
+          "expression": "F.datediff(F.col('next_visit'), F.col('condition_end_date'))"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_readmission",
+          "expression": "F.when((F.col('days_to_next_visit') >= 0) & (F.col('days_to_next_visit') <= 30), 1).otherwise(0)"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["provider_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_episodes", "function": "count(*)"},
+            {"alias": "readmissions_30day", "function": "sum(is_readmission)"},
+            {"alias": "avg_days_between_visits", "function": "avg(days_to_next_visit)"},
+            {"alias": "avg_episode_length", "function": "avg(datediff(condition_end_date, condition_start_date))"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "readmission_rate",
+          "expression": "F.when(F.col('total_episodes') > 0, F.col('readmissions_30day') / F.col('total_episodes')).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 5: Provider quality indicators including 30-day readmission rates"
+    },
+    {
+      "output": "silver_care_coordination",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure"
+      ],
+      "inputs": ["bronze_condition", "bronze_procedure", "bronze_drug"],
+      "operations": [
+        {
+          "op": "union",
+          "description": "Combine all provider-patient relationships from conditions, procedures, and drugs"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "provider_count_per_patient", "function": "countDistinct(provider_id)"}
+          ]
+        },
+        {
+          "op": "groupBy",
+          "columns": ["provider_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "avg_providers_per_patient", "function": "avg(provider_count_per_patient)"},
+            {"alias": "max_providers_per_patient", "function": "max(provider_count_per_patient)"},
+            {"alias": "patients_requiring_coordination", "function": "countDistinct(person_id)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "coordination_complexity_score",
+          "expression": "F.col('avg_providers_per_patient') * F.col('patients_requiring_coordination') / 100"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 6: Provider care coordination metrics measuring multi-provider patient care"
+    },
+    {
+      "output": "gold_provider_master",
+      "layer": "gold",
+      "inputs": ["silver_provider_demographics", "silver_clinical_activity", "silver_patient_outcomes"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "provider_age",
+          "expression": "2024 - F.col('year_of_birth')"
+        },
+        {
+          "op": "withColumn",
+          "column": "patient_per_encounter_ratio",
+          "expression": "F.when(F.col('total_encounters') > 0, F.col('total_unique_patients') / F.col('total_encounters')).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 1/15: Provider master profile integrating demographics, activity, and outcomes"
+    },
+    {
+      "output": "gold_volume_metrics",
+      "layer": "gold",
+      "inputs": ["gold_provider_master"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "volume_percentile",
+          "expression": "F.percent_rank().over(W.orderBy(F.col('total_encounters').desc()))"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_high_volume",
+          "expression": "F.when(F.col('volume_percentile') >= 0.75, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "procedure_ratio",
+          "expression": "F.when(F.col('total_encounters') > 0, F.col('procedure_count') / F.col('total_encounters')).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 2/15: Provider volume metrics with percentile rankings"
+    },
+    {
+      "output": "gold_specialty_analysis",
+      "layer": "gold",
+      "inputs": ["gold_provider_master"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["specialty_concept_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "specialty_provider_count", "function": "count(*)"},
+            {"alias": "avg_specialty_volume", "function": "avg(total_encounters)"},
+            {"alias": "specialty_mortality_rate", "function": "avg(mortality_rate)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "specialty_benchmark",
+          "expression": "F.avg('mortality_rate').over(W.partitionBy('specialty_concept_id'))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 3/15: Specialty-level analysis for benchmarking"
+    },
+    {
+      "output": "gold_outcome_tiers",
+      "layer": "gold",
+      "inputs": ["silver_patient_outcomes"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "mortality_percentile",
+          "expression": "F.percent_rank().over(W.orderBy(F.col('mortality_rate')))"
+        },
+        {
+          "op": "withColumn",
+          "column": "outcome_tier",
+          "expression": "F.when(F.col('mortality_percentile') <= 0.25, 'Excellent').when(F.col('mortality_percentile') <= 0.50, 'Good').when(F.col('mortality_percentile') <= 0.75, 'Fair').otherwise('Needs Improvement')"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_adjusted_mortality",
+          "expression": "F.when(F.col('condition_complexity') > 0, F.col('mortality_rate') / F.col('condition_complexity')).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 4/15: Outcome performance tiers with complexity-adjusted mortality"
+    },
+    {
+      "output": "gold_network_connectivity",
+      "layer": "gold",
+      "inputs": ["silver_referral_network"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "network_rank",
+          "expression": "F.row_number().over(W.orderBy(F.col('network_centrality').desc()))"
+        },
+        {
+          "op": "withColumn",
+          "column": "network_percentile",
+          "expression": "F.percent_rank().over(W.orderBy(F.col('network_centrality').desc()))"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_hub_provider",
+          "expression": "F.when(F.col('network_percentile') >= 0.90, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "referral_balance",
+          "expression": "F.abs(F.col('outbound_referral_count') - F.col('inbound_referral_count'))"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_balanced_network",
+          "expression": "F.when(F.col('referral_balance') <= 2, 1).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 5/15: Network connectivity score identifying hub providers"
+    },
+    {
+      "output": "gold_care_site_performance",
+      "layer": "gold",
+      "inputs": ["gold_provider_master"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["care_site_id", "care_site_name"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "site_provider_count", "function": "count(*)"},
+            {"alias": "site_total_encounters", "function": "sum(total_encounters)"},
+            {"alias": "site_avg_mortality", "function": "avg(mortality_rate)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "site_efficiency_score",
+          "expression": "F.col('site_total_encounters') / (F.col('site_provider_count') + 1)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 6/15: Care site performance aggregation"
+    },
+    {
+      "output": "gold_complexity_score",
+      "layer": "gold",
+      "inputs": ["silver_clinical_activity", "silver_patient_outcomes"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "clinical_complexity",
+          "expression": "(F.col('procedure_variety') * 0.4 + F.col('drug_variety') * 0.3 + F.col('condition_variety') * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_tier",
+          "expression": "F.when(F.col('clinical_complexity') >= 10, 'High').when(F.col('clinical_complexity') >= 5, 'Medium').otherwise('Low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 7/15: Provider complexity score based on clinical variety"
+    },
+    {
+      "output": "gold_efficiency_index",
+      "layer": "gold",
+      "inputs": ["gold_provider_master", "gold_volume_metrics", "gold_outcome_tiers"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "efficiency_score",
+          "expression": "(F.col('volume_percentile') * 0.4 + (1 - F.col('mortality_percentile')) * 0.4 + F.col('patient_per_encounter_ratio') * 0.2) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "efficiency_grade",
+          "expression": "F.when(F.col('efficiency_score') >= 80, 'A').when(F.col('efficiency_score') >= 60, 'B').when(F.col('efficiency_score') >= 40, 'C').otherwise('D')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 8/15: Provider efficiency index combining volume and outcomes"
+    },
+    {
+      "output": "gold_network_influence",
+      "layer": "gold",
+      "inputs": ["gold_network_connectivity"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "influence_score",
+          "expression": "(F.col('network_centrality') * 0.5 + F.col('total_patients_referred_out') * 0.3 + F.col('total_patients_referred_in') * 0.2)"
+        },
+        {
+          "op": "withColumn",
+          "column": "referral_direction",
+          "expression": "F.when(F.col('outbound_referral_count') > F.col('inbound_referral_count'), 'Outbound').when(F.col('inbound_referral_count') > F.col('outbound_referral_count'), 'Inbound').otherwise('Balanced')"
+        },
+        {
+          "op": "withColumn",
+          "column": "network_role",
+          "expression": "F.when(F.col('is_hub_provider') == 1, 'Hub').when(F.col('is_balanced_network') == 1, 'Connector').otherwise('Peripheral')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 9/15: Network influence metrics with provider role classification"
+    },
+    {
+      "output": "gold_quality_adjusted",
+      "layer": "gold",
+      "inputs": ["silver_quality_indicators"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "readmission_percentile",
+          "expression": "F.percent_rank().over(W.orderBy(F.col('readmission_rate')))"
+        },
+        {
+          "op": "withColumn",
+          "column": "readmission_score",
+          "expression": "(1 - F.col('readmission_percentile')) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "episode_efficiency_score",
+          "expression": "F.when(F.col('avg_episode_length') > 0, 100 / (F.col('avg_episode_length') + 1)).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "continuity_score",
+          "expression": "F.when(F.col('avg_days_between_visits').isNotNull(), 100 - F.least(F.col('avg_days_between_visits'), F.lit(100))).otherwise(50)"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_composite",
+          "expression": "(F.col('readmission_score') * 0.4 + F.col('episode_efficiency_score') * 0.3 + F.col('continuity_score') * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_tier",
+          "expression": "F.when(F.col('quality_composite') >= 70, 'Tier 1').when(F.col('quality_composite') >= 50, 'Tier 2').when(F.col('quality_composite') >= 30, 'Tier 3').otherwise('Tier 4')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 10/15: Quality-adjusted performance with composite scoring"
+    },
+    {
+      "output": "gold_collaboration_index",
+      "layer": "gold",
+      "inputs": ["silver_care_coordination", "gold_quality_adjusted"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "collaboration_score",
+          "expression": "(F.col('avg_providers_per_patient') * 20 + F.col('coordination_complexity_score') * 10 + F.coalesce(F.col('quality_composite'), F.lit(50)) * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "collaboration_type",
+          "expression": "F.when(F.col('avg_providers_per_patient') >= 3, 'High Collaboration').when(F.col('avg_providers_per_patient') >= 2, 'Moderate Collaboration').otherwise('Low Collaboration')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 11/15: Care collaboration index measuring team-based care"
+    },
+    {
+      "output": "gold_patient_retention",
+      "layer": "gold",
+      "inputs": ["silver_clinical_activity", "silver_quality_indicators"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "retention_proxy",
+          "expression": "F.when(F.col('total_encounters') > 0, F.col('total_unique_patients') / F.col('total_encounters')).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "loyalty_score",
+          "expression": "F.col('retention_proxy') * (1 - F.coalesce(F.col('readmission_rate'), F.lit(0))) * 100"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 12/15: Patient retention metrics as loyalty indicator"
+    },
+    {
+      "output": "gold_network_efficiency",
+      "layer": "gold",
+      "inputs": ["gold_network_influence", "gold_quality_adjusted"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "efficiency_ratio",
+          "expression": "F.when(F.col('network_centrality') > 0, F.col('quality_composite') / F.col('network_centrality')).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_per_referral",
+          "expression": "F.when((F.col('total_patients_referred_out') + F.col('total_patients_referred_in')) > 0, F.col('quality_composite') / (F.col('total_patients_referred_out') + F.col('total_patients_referred_in'))).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_efficient_network_provider",
+          "expression": "F.when(F.col('efficiency_ratio') > 0, 1).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 13/15: Network efficiency ratio combining quality and referral volume"
+    },
+    {
+      "output": "gold_comprehensive_scorecard",
+      "layer": "gold",
+      "inputs": ["gold_efficiency_index", "gold_quality_adjusted", "gold_collaboration_index", "gold_network_influence"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "comprehensive_score",
+          "expression": "(F.col('efficiency_score') * 0.3 + F.col('quality_composite') * 0.3 + F.col('collaboration_score') * 0.2 + F.col('influence_score') * 0.2)"
+        },
+        {
+          "op": "withColumn",
+          "column": "overall_rank",
+          "expression": "F.row_number().over(W.orderBy(F.col('comprehensive_score').desc()))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 14/15: Comprehensive provider scorecard with weighted scoring"
+    },
+    {
+      "output": "gold_strategic_segmentation",
+      "layer": "gold",
+      "inputs": ["gold_comprehensive_scorecard"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "segment",
+          "expression": "F.when((F.col('efficiency_grade') == 'A') & (F.col('quality_tier') == 'Tier 1'), 'Star Performer').when((F.col('network_role') == 'Hub') & (F.col('collaboration_type') == 'High Collaboration'), 'Network Leader').when((F.col('efficiency_score') >= 60) & (F.col('quality_composite') >= 50), 'Solid Performer').when(F.col('is_high_volume') == 1, 'High Volume').otherwise('Emerging Provider')"
+        },
+        {
+          "op": "withColumn",
+          "column": "strategic_priority",
+          "expression": "F.when(F.col('segment') == 'Star Performer', 'Retain & Reward').when(F.col('segment') == 'Network Leader', 'Expand Network').when(F.col('segment') == 'Solid Performer', 'Maintain').when(F.col('segment') == 'High Volume', 'Quality Improvement').otherwise('Develop')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 15/15: Strategic provider segmentation with actionable priorities"
+    },
+    {
+      "output": "metric_provider_quality_composite",
+      "layer": "metric",
+      "inputs": ["gold_strategic_segmentation", "gold_quality_adjusted", "gold_outcome_tiers"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_index",
+          "expression": "(F.col('quality_composite') * 0.4 + (1 - F.col('mortality_percentile')) * 100 * 0.3 + F.col('readmission_score') * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_rank",
+          "expression": "F.row_number().over(W.orderBy(F.col('quality_index').desc()))"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_rating",
+          "expression": "F.when(F.col('quality_index') >= 80, 'Excellent').when(F.col('quality_index') >= 60, 'Good').when(F.col('quality_index') >= 40, 'Fair').otherwise('Needs Improvement')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 1: Provider Quality Composite - Comprehensive quality indicator integration"
+    },
+    {
+      "output": "metric_network_efficiency_score",
+      "layer": "metric",
+      "inputs": ["gold_network_efficiency", "gold_network_influence"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "network_efficiency_score",
+          "expression": "(F.col('efficiency_ratio') * 50 + F.col('quality_per_referral') * 50)"
+        },
+        {
+          "op": "withColumn",
+          "column": "efficiency_rating",
+          "expression": "F.when(F.col('network_efficiency_score') >= 75, 'Highly Efficient').when(F.col('network_efficiency_score') >= 50, 'Efficient').when(F.col('network_efficiency_score') >= 25, 'Moderately Efficient').otherwise('Inefficient')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 2: Network Efficiency Score - Referral network efficiency measurement"
+    },
+    {
+      "output": "metric_patient_outcome_attribution",
+      "layer": "metric",
+      "inputs": ["gold_outcome_tiers", "gold_complexity_score", "gold_patient_retention"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "outcome_attribution_score",
+          "expression": "((1 - F.col('mortality_rate')) * 100 * 0.4 + F.col('loyalty_score') * 0.3 + (100 - F.col('clinical_complexity') * 5) * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "attribution_tier",
+          "expression": "F.when(F.col('outcome_attribution_score') >= 80, 'High Impact').when(F.col('outcome_attribution_score') >= 60, 'Moderate Impact').when(F.col('outcome_attribution_score') >= 40, 'Low Impact').otherwise('Minimal Impact')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 3: Patient Outcome Attribution - Provider-specific outcome contribution"
+    },
+    {
+      "output": "metric_care_coordination_index",
+      "layer": "metric",
+      "inputs": ["gold_collaboration_index", "gold_quality_adjusted", "silver_care_coordination"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id"
+        },
+        {
+          "op": "withColumn",
+          "column": "coordination_index",
+          "expression": "(F.col('collaboration_score') * 0.4 + F.col('quality_composite') * 0.3 + F.col('coordination_complexity_score') * 100 * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "coordination_rating",
+          "expression": "F.when(F.col('coordination_index') >= 70, 'Excellent Coordinator').when(F.col('coordination_index') >= 50, 'Good Coordinator').when(F.col('coordination_index') >= 30, 'Average Coordinator').otherwise('Needs Improvement')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 4: Care Coordination Index - Collaborative care quality measurement"
+    }
+  ],
+  "summary": {
+    "total_transformations": 35,
+    "layers": {
+      "bronze": 10,
+      "silver": 6,
+      "gold": 15,
+      "metric": 4
+    },
+    "edges": 47,
+    "languages": ["pyspark"],
+    "final_metrics": [
+      "Provider Quality Composite",
+      "Network Efficiency Score",
+      "Patient Outcome Attribution",
+      "Care Coordination Index"
+    ]
+  }
+}

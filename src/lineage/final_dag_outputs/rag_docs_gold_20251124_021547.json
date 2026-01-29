@@ -1,0 +1,753 @@
+[
+  {
+    "id": "bigquery/provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+    "texts": [
+      "provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "Layer: gold",
+      "Namespace: bigquery",
+      "Incoming: 3, Outgoing: 0",
+      "Consumes: bigquery-public-data.cms_medicare.outpatient_charges_2014, bigquery-public-data.cms_medicare.hospital_general_info, bigquery-public-data.cms_medicare.inpatient_charges_2014"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_l14_metric2"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_risk",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_risk",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l11_effectiveness",
+      "Feeds into: gold_l13_metric1"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: gold_l12_risk, gold_l12_engagement",
+      "Feeds into: gold_l14_metric2"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 6, Outgoing: 1",
+      "Consumes: silver_condition_costs, silver_encounter_costs, silver_procedure_costs, silver_payer_info, silver_demographics",
+      "Feeds into: gold_l2_direct_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_trajectory",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_trajectory",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l8_distribution",
+      "Feeds into: gold_l10_outcomes"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_outcomes",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_outcomes",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l9_trajectory",
+      "Feeds into: gold_l11_effectiveness"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_effectiveness",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_effectiveness",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l10_outcomes",
+      "Feeds into: gold_l12_risk"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: gold_l13_metric1",
+      "Feeds into: gold_l15_final, gold_l15_final_metrics"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_direct_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_direct_costs",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l1_base_costs",
+      "Feeds into: gold_l3_indirect_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_indirect_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_indirect_costs",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l2_direct_costs",
+      "Feeds into: gold_l4_time_adjusted"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_time_adjusted",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_time_adjusted",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l3_indirect_costs",
+      "Feeds into: gold_l5_age_adjusted"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: gold_l4_time_adjusted",
+      "Feeds into: gold_l6_complexity, gold_l7_efficiency"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_complexity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_complexity",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_l5_age_adjusted"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_efficiency",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_efficiency",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l5_age_adjusted",
+      "Feeds into: gold_l8_distribution"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_distribution",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_distribution",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l7_efficiency",
+      "Feeds into: gold_l9_trajectory"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 2",
+      "Consumes: gold_care_accessibility, gold_need_supply_gap, gold_compound_disadvantage",
+      "Feeds into: metric_disparity_magnitude, metric_health_equity_index"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 4",
+      "Consumes: gold_care_accessibility, gold_population_health_index",
+      "Feeds into: gold_integrated_ranking, gold_predictive_risk, gold_underserved_flag, metric_disparity_magnitude"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_regional_inequity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_regional_inequity",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_care_accessibility",
+      "Feeds into: metric_disparity_magnitude"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 2",
+      "Consumes: silver_regional_demographics, silver_provider_density",
+      "Feeds into: gold_care_accessibility, metric_care_desert"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: silver_provider_density",
+      "Feeds into: gold_care_accessibility, metric_care_desert"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 5",
+      "Consumes: gold_service_diversity, gold_access_ratio",
+      "Feeds into: gold_integrated_ranking, gold_need_supply_gap, gold_regional_inequity, gold_utilization_efficiency, metric_health_equity_index"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: silver_sdoh_indicators",
+      "Feeds into: gold_compound_disadvantage, metric_sdoh_impact"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: gold_care_accessibility, gold_utilization_intensity",
+      "Feeds into: gold_compound_disadvantage"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: gold_need_supply_gap",
+      "Feeds into: gold_compound_disadvantage, metric_care_desert"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 3",
+      "Consumes: gold_vulnerability_score, gold_utilization_efficiency, gold_underserved_flag",
+      "Feeds into: gold_integrated_ranking, gold_predictive_risk, metric_sdoh_impact"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 2",
+      "Consumes: silver_regional_demographics, silver_health_outcomes",
+      "Feeds into: gold_need_supply_gap, metric_health_equity_index"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_temporal_stability",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_temporal_stability",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_utilization_intensity",
+      "Feeds into: gold_predictive_risk"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 0",
+      "Consumes: gold_temporal_stability, gold_need_supply_gap, gold_compound_disadvantage"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_access",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_access",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 0",
+      "Consumes: silver_facility_access, silver_regional_demographics"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 2",
+      "Consumes: silver_regional_demographics, silver_service_utilization",
+      "Feeds into: gold_utilization_efficiency, gold_temporal_stability"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 0",
+      "Consumes: gold_service_diversity, gold_access_ratio, gold_underserved_flag"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 0",
+      "Consumes: gold_integrated_ranking, gold_need_supply_gap, gold_regional_inequity"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 0",
+      "Consumes: gold_care_accessibility, gold_population_health_index, gold_integrated_ranking"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_sdoh_impact",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_sdoh_impact",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 0",
+      "Consumes: gold_vulnerability_score, gold_compound_disadvantage"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_patient_journey",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_patient_journey",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 0",
+      "Consumes: silver_procedures, silver_demographics"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_healthcare_access",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_healthcare_access",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: silver_sdoh"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/patient_journey",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/patient_journey",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 0",
+      "Consumes: omop_person.csv, omop_procedure_occurrence.csv"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_stability",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_stability",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l8_attribution",
+      "Feeds into: gold_l10_benchmarked"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_benchmarked",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_benchmarked",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l9_stability",
+      "Feeds into: gold_l11_vbc"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 5, Outgoing: 1",
+      "Consumes: silver_utilization, silver_cost_by_payer, silver_member_enrollment, silver_risk_scores, silver_provider_attribution",
+      "Feeds into: gold_l2_utilization_density"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_risk_adjusted_pmpm",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_risk_adjusted_pmpm",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l4_pmpm",
+      "Feeds into: gold_l6_coverage"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: silver_plan_features, gold_l5_risk_adjusted_pmpm",
+      "Feeds into: gold_l7_high_value"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final_metrics",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final_metrics",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_l14_metric2"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_vbc",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_vbc",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l10_benchmarked",
+      "Feeds into: gold_l12_engagement"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_engagement",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_engagement",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l11_vbc",
+      "Feeds into: gold_l13_metric1"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_utilization_density",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_utilization_density",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l1_member_profile",
+      "Feeds into: gold_l3_risk_adjusted"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_risk_adjusted",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_risk_adjusted",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l2_utilization_density",
+      "Feeds into: gold_l4_pmpm"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_pmpm",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_pmpm",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l3_risk_adjusted",
+      "Feeds into: gold_l5_risk_adjusted_pmpm"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_high_value",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_high_value",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l6_coverage",
+      "Feeds into: gold_l8_attribution"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_attribution",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_attribution",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: gold_l7_high_value",
+      "Feeds into: gold_l9_stability"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 3",
+      "Consumes: gold_network_connectivity",
+      "Feeds into: final_network_efficiency, gold_comprehensive_scorecard, gold_network_efficiency"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: gold_quality_adjusted, gold_network_influence",
+      "Feeds into: final_network_efficiency"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: gold_coordination_effectiveness",
+      "Feeds into: final_care_coordination, gold_comprehensive_scorecard"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_care_coordination",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_care_coordination",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_collaboration_density"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_network_efficiency",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_network_efficiency",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 0",
+      "Consumes: gold_network_influence, gold_network_efficiency"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: gold_volume_metrics, gold_outcome_tiers",
+      "Feeds into: final_outcome_attribution"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_outcome_attribution",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_outcome_attribution",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_outcome_attribution"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 5, Outgoing: 2",
+      "Consumes: gold_quality_adjusted, gold_network_influence, gold_collaboration_density, gold_efficiency_index, gold_provider_master",
+      "Feeds into: final_quality_composite, gold_strategic_segmentation"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_quality_composite",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_quality_composite",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_comprehensive_scorecard"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: gold_quality_subscores",
+      "Feeds into: gold_comprehensive_scorecard, gold_network_efficiency"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 1",
+      "Consumes: gold_volume_metrics, gold_outcome_tiers, gold_provider_master",
+      "Feeds into: gold_comprehensive_scorecard"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 2",
+      "Consumes: silver_provider_demographics, silver_provider_activity, silver_patient_outcomes",
+      "Feeds into: gold_comprehensive_scorecard, gold_efficiency_index"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_coordination_effectiveness",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_coordination_effectiveness",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: silver_care_coordination",
+      "Feeds into: gold_collaboration_density"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: silver_provider_activity",
+      "Feeds into: gold_efficiency_index, gold_outcome_attribution"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 2",
+      "Consumes: silver_patient_outcomes",
+      "Feeds into: gold_efficiency_index, gold_outcome_attribution"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_connectivity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_connectivity",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: silver_referral_network",
+      "Feeds into: gold_network_influence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_subscores",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_subscores",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: silver_quality_indicators",
+      "Feeds into: gold_quality_adjusted"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_strategic_segmentation",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_strategic_segmentation",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: gold_comprehensive_scorecard"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_clinical_diversity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_clinical_diversity",
+      "Layer: gold",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: silver_provider_activity"
+    ]
+  }
+]

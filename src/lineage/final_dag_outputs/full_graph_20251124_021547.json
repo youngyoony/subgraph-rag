@@ -1,0 +1,2807 @@
+{
+  "nodes": [
+    {
+      "id": "bigquery/bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "name": "bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "short_name": "bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "layer": "unknown",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/bigquery-public-data.cms_medicare.hospital_general_info",
+      "name": "bigquery-public-data.cms_medicare.hospital_general_info",
+      "short_name": "bigquery-public-data.cms_medicare.hospital_general_info",
+      "layer": "unknown",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "name": "bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "short_name": "bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "layer": "unknown",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/opportune-ruler-447319-b3.omop_work.bronze_hospital_general_info",
+      "name": "opportune-ruler-447319-b3.omop_work.bronze_hospital_general_info",
+      "short_name": "opportune-ruler-447319-b3.omop_work.bronze_hospital_general_info",
+      "layer": "bronze",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_hospital_general_info",
+      "name": "provenance-sandbox-10192025.cms_demo.bronze_hospital_general_info",
+      "short_name": "provenance-sandbox-10192025.cms_demo.bronze_hospital_general_info",
+      "layer": "bronze",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/bigquery-public-data.cms_codes.icd10_diagnoses_2019",
+      "name": "bigquery-public-data.cms_codes.icd10_diagnoses_2019",
+      "short_name": "bigquery-public-data.cms_codes.icd10_diagnoses_2019",
+      "layer": "unknown",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_icd10_diagnoses_2019",
+      "name": "provenance-sandbox-10192025.cms_demo.bronze_icd10_diagnoses_2019",
+      "short_name": "provenance-sandbox-10192025.cms_demo.bronze_icd10_diagnoses_2019",
+      "layer": "bronze",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_inpatient_2014",
+      "name": "provenance-sandbox-10192025.cms_demo.bronze_inpatient_2014",
+      "short_name": "provenance-sandbox-10192025.cms_demo.bronze_inpatient_2014",
+      "layer": "bronze",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_outpatient_2014",
+      "name": "provenance-sandbox-10192025.cms_demo.bronze_outpatient_2014",
+      "short_name": "provenance-sandbox-10192025.cms_demo.bronze_outpatient_2014",
+      "layer": "bronze",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "name": "provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "short_name": "provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "layer": "gold",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014",
+      "name": "provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014",
+      "short_name": "provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014",
+      "layer": "silver",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014",
+      "name": "provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014",
+      "short_name": "provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014",
+      "layer": "silver",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "bigquery/provenance-sandbox-10192025.cms_demo.silver_quality_features",
+      "name": "provenance-sandbox-10192025.cms_demo.silver_quality_features",
+      "short_name": "provenance-sandbox-10192025.cms_demo.silver_quality_features",
+      "layer": "silver",
+      "namespace": "bigquery"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final",
+      "short_name": "gold_l15_final",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_risk",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_risk",
+      "short_name": "gold_l12_risk",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+      "short_name": "gold_l13_metric1",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_condition_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_condition_costs",
+      "short_name": "silver_condition_costs",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_encounter_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_encounter_costs",
+      "short_name": "silver_encounter_costs",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedure_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedure_costs",
+      "short_name": "silver_procedure_costs",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_payer_info",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_payer_info",
+      "short_name": "silver_payer_info",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "short_name": "silver_demographics",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_drug_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_drug_costs",
+      "short_name": "silver_drug_costs",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "short_name": "gold_l1_base_costs",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "short_name": "bronze_omop_condition_occurrence",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "short_name": "bronze_omop_death",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "short_name": "bronze_omop_observation_period",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "short_name": "bronze_omop_person",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "short_name": "bronze_omop_drug_exposure",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "short_name": "bronze_omop_payer_plan_period",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "short_name": "bronze_omop_procedure_occurrence",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_inpatient_charges_2011.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_inpatient_charges_2011.csv",
+      "short_name": "medicare_inpatient_charges_2011.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_inpatient_charges_2011",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_inpatient_charges_2011",
+      "short_name": "bronze_medicare_inpatient_charges_2011",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_outpatient_charges_2011.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_outpatient_charges_2011.csv",
+      "short_name": "medicare_outpatient_charges_2011.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_outpatient_charges_2011",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_outpatient_charges_2011",
+      "short_name": "bronze_medicare_outpatient_charges_2011",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_care_site.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_care_site.csv",
+      "short_name": "omop_care_site.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "short_name": "bronze_omop_care_site",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_condition_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_condition_occurrence.csv",
+      "short_name": "omop_condition_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_cost.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_cost.csv",
+      "short_name": "omop_cost.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_cost",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_cost",
+      "short_name": "bronze_omop_cost",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_death.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_death.csv",
+      "short_name": "omop_death.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_drug_exposure.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_drug_exposure.csv",
+      "short_name": "omop_drug_exposure.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation.csv",
+      "short_name": "omop_observation.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation",
+      "short_name": "bronze_omop_observation",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation_period.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation_period.csv",
+      "short_name": "omop_observation_period.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_payer_plan_period.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_payer_plan_period.csv",
+      "short_name": "omop_payer_plan_period.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_person.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_person.csv",
+      "short_name": "omop_person.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_procedure_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_procedure_occurrence.csv",
+      "short_name": "omop_procedure_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_trajectory",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_trajectory",
+      "short_name": "gold_l9_trajectory",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_outcomes",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_outcomes",
+      "short_name": "gold_l10_outcomes",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_effectiveness",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_effectiveness",
+      "short_name": "gold_l11_effectiveness",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+      "short_name": "gold_l14_metric2",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_direct_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_direct_costs",
+      "short_name": "gold_l2_direct_costs",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_indirect_costs",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_indirect_costs",
+      "short_name": "gold_l3_indirect_costs",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_time_adjusted",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_time_adjusted",
+      "short_name": "gold_l4_time_adjusted",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+      "short_name": "gold_l5_age_adjusted",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_complexity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_complexity",
+      "short_name": "gold_l6_complexity",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_efficiency",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_efficiency",
+      "short_name": "gold_l7_efficiency",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_distribution",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_distribution",
+      "short_name": "gold_l8_distribution",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "short_name": "gold_integrated_ranking",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "short_name": "gold_need_supply_gap",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_regional_inequity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_regional_inequity",
+      "short_name": "gold_regional_inequity",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "short_name": "silver_regional_demographics",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "short_name": "silver_provider_density",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "short_name": "gold_access_ratio",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+      "short_name": "gold_service_diversity",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "short_name": "gold_care_accessibility",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+      "short_name": "gold_vulnerability_score",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+      "short_name": "gold_utilization_efficiency",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+      "short_name": "gold_underserved_flag",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "short_name": "gold_compound_disadvantage",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "short_name": "gold_population_health_index",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "short_name": "silver_health_outcomes",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_temporal_stability",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_temporal_stability",
+      "short_name": "gold_temporal_stability",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+      "short_name": "gold_predictive_risk",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_facility_access",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_facility_access",
+      "short_name": "silver_facility_access",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_access",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_access",
+      "short_name": "gold_quality_access",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "short_name": "gold_utilization_intensity",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "short_name": "silver_service_utilization",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+      "short_name": "metric_care_desert",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+      "short_name": "metric_disparity_magnitude",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+      "short_name": "metric_health_equity_index",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_sdoh_impact",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_sdoh_impact",
+      "short_name": "metric_sdoh_impact",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_hospital_general_info",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_hospital_general_info",
+      "short_name": "bronze_medicare_hospital_general_info",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "short_name": "bronze_omop_location",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "short_name": "bronze_omop_provider",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "short_name": "bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh_indicators",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh_indicators",
+      "short_name": "silver_sdoh_indicators",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "short_name": "dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_hospital_general_info.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_hospital_general_info.csv",
+      "short_name": "medicare_hospital_general_info.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_inpatient_charges_2011.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_inpatient_charges_2011.csv",
+      "short_name": "medicare_inpatient_charges_2011.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_care_site.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_care_site.csv",
+      "short_name": "omop_care_site.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_condition_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_condition_occurrence.csv",
+      "short_name": "omop_condition_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_drug_exposure.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_drug_exposure.csv",
+      "short_name": "omop_drug_exposure.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_location.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_location.csv",
+      "short_name": "omop_location.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_observation_period.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_observation_period.csv",
+      "short_name": "omop_observation_period.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_person.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_person.csv",
+      "short_name": "omop_person.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_procedure_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_procedure_occurrence.csv",
+      "short_name": "omop_procedure_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_provider.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_provider.csv",
+      "short_name": "omop_provider.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_patient_journey",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_patient_journey",
+      "short_name": "gold_patient_journey",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh",
+      "short_name": "silver_sdoh",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_healthcare_access",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_healthcare_access",
+      "short_name": "gold_healthcare_access",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedures",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedures",
+      "short_name": "silver_procedures",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "short_name": "omop_person.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "short_name": "omop_procedure_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/patient_journey",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/patient_journey",
+      "short_name": "patient_journey",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/demographics",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/demographics",
+      "short_name": "demographics",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/procedures",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/procedures",
+      "short_name": "procedures",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2014",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2014",
+      "short_name": "bronze_medicare_physicians_and_other_supplier_2014",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "short_name": "silver_utilization",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_concept.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_concept.csv",
+      "short_name": "omop_concept.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_concept",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_concept",
+      "short_name": "bronze_concept",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+      "short_name": "omop_condition_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_condition",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_condition",
+      "short_name": "bronze_condition",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_cost.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_cost.csv",
+      "short_name": "omop_cost.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_cost",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_cost",
+      "short_name": "bronze_cost",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_death.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_death.csv",
+      "short_name": "omop_death.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_death",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_death",
+      "short_name": "bronze_death",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_drug_exposure.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_drug_exposure.csv",
+      "short_name": "omop_drug_exposure.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_drug",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_drug",
+      "short_name": "bronze_drug",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "short_name": "dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual",
+      "short_name": "bronze_dual",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd10_diagnoses_2019.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd10_diagnoses_2019.csv",
+      "short_name": "hcpcs_icd10_diagnoses_2019.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_hcpcs_icd10_diagnoses_2019",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_hcpcs_icd10_diagnoses_2019",
+      "short_name": "bronze_hcpcs_icd10_diagnoses_2019",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd9_diagnoses.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd9_diagnoses.csv",
+      "short_name": "hcpcs_icd9_diagnoses.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_hcpcs_icd9_diagnoses",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_hcpcs_icd9_diagnoses",
+      "short_name": "bronze_hcpcs_icd9_diagnoses",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_icd10",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_icd10",
+      "short_name": "bronze_icd10",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_icd9",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_icd9",
+      "short_name": "bronze_icd9",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_inpatient_charges_2011.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_inpatient_charges_2011.csv",
+      "short_name": "medicare_inpatient_charges_2011.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_inpatient",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_inpatient",
+      "short_name": "bronze_inpatient",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_outpatient_charges_2011.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_outpatient_charges_2011.csv",
+      "short_name": "medicare_outpatient_charges_2011.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2012.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2012.csv",
+      "short_name": "medicare_physicians_and_other_supplier_2012.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2012",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2012",
+      "short_name": "bronze_medicare_physicians_and_other_supplier_2012",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2013.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2013.csv",
+      "short_name": "medicare_physicians_and_other_supplier_2013.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2013",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2013",
+      "short_name": "bronze_medicare_physicians_and_other_supplier_2013",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2014.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2014.csv",
+      "short_name": "medicare_physicians_and_other_supplier_2014.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "short_name": "nppes_healthcare_provider_taxonomy_code_set.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_nppes_healthcare_provider_taxonomy_code_set",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_nppes_healthcare_provider_taxonomy_code_set",
+      "short_name": "bronze_nppes_healthcare_provider_taxonomy_code_set",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_observation.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_observation.csv",
+      "short_name": "omop_observation.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_observation",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_observation",
+      "short_name": "bronze_observation",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_concept",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_concept",
+      "short_name": "bronze_omop_concept",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_outpatient",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_outpatient",
+      "short_name": "bronze_outpatient",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_person",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_person",
+      "short_name": "bronze_person",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2012",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2012",
+      "short_name": "bronze_physician_2012",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2013",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2013",
+      "short_name": "bronze_physician_2013",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2014",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2014",
+      "short_name": "bronze_physician_2014",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_procedure",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_procedure",
+      "short_name": "bronze_procedure",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_taxonomy",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_taxonomy",
+      "short_name": "bronze_taxonomy",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/condition",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/condition",
+      "short_name": "condition",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/person",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/person",
+      "short_name": "person",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/procedure",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/bronze/procedure",
+      "short_name": "procedure",
+      "layer": "bronze",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_stability",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_stability",
+      "short_name": "gold_l9_stability",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_benchmarked",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_benchmarked",
+      "short_name": "gold_l10_benchmarked",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "short_name": "silver_cost_by_payer",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "short_name": "silver_member_enrollment",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+      "short_name": "silver_risk_scores",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+      "short_name": "silver_provider_attribution",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "short_name": "gold_l1_member_profile",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+      "short_name": "silver_plan_features",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_risk_adjusted_pmpm",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_risk_adjusted_pmpm",
+      "short_name": "gold_l5_risk_adjusted_pmpm",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+      "short_name": "gold_l6_coverage",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final_metrics",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final_metrics",
+      "short_name": "gold_l15_final_metrics",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/inpatient_charges_2011.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/inpatient_charges_2011.csv",
+      "short_name": "inpatient_charges_2011.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/care_site.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/care_site.csv",
+      "short_name": "care_site.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/condition_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/condition_occurrence.csv",
+      "short_name": "condition_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/cost.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/cost.csv",
+      "short_name": "cost.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/drug_exposure.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/drug_exposure.csv",
+      "short_name": "drug_exposure.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/observation_period.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/observation_period.csv",
+      "short_name": "observation_period.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/payer_plan_period.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/payer_plan_period.csv",
+      "short_name": "payer_plan_period.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/person.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/person.csv",
+      "short_name": "person.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/procedure_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/procedure_occurrence.csv",
+      "short_name": "procedure_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/provider.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/5_data/provider.csv",
+      "short_name": "provider.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_vbc",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_vbc",
+      "short_name": "gold_l11_vbc",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_engagement",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_engagement",
+      "short_name": "gold_l12_engagement",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_utilization_density",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_utilization_density",
+      "short_name": "gold_l2_utilization_density",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_risk_adjusted",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_risk_adjusted",
+      "short_name": "gold_l3_risk_adjusted",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_pmpm",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_pmpm",
+      "short_name": "gold_l4_pmpm",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_high_value",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_high_value",
+      "short_name": "gold_l7_high_value",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_attribution",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_attribution",
+      "short_name": "gold_l8_attribution",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "short_name": "gold_network_influence",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+      "short_name": "gold_network_efficiency",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+      "short_name": "gold_collaboration_density",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_care_coordination",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_care_coordination",
+      "short_name": "final_care_coordination",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_network_efficiency",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_network_efficiency",
+      "short_name": "final_network_efficiency",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+      "short_name": "gold_outcome_attribution",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_outcome_attribution",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_outcome_attribution",
+      "short_name": "final_outcome_attribution",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "short_name": "gold_comprehensive_scorecard",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_quality_composite",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_quality_composite",
+      "short_name": "final_quality_composite",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+      "short_name": "gold_quality_adjusted",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "short_name": "gold_efficiency_index",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "short_name": "gold_provider_master",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "short_name": "silver_care_coordination",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_coordination_effectiveness",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_coordination_effectiveness",
+      "short_name": "gold_coordination_effectiveness",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+      "short_name": "gold_volume_metrics",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+      "short_name": "gold_outcome_tiers",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+      "short_name": "silver_referral_network",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_connectivity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_connectivity",
+      "short_name": "gold_network_connectivity",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "short_name": "silver_patient_outcomes",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+      "short_name": "silver_provider_demographics",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "short_name": "silver_provider_activity",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_quality_indicators",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_quality_indicators",
+      "short_name": "silver_quality_indicators",
+      "layer": "silver",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_subscores",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_subscores",
+      "short_name": "gold_quality_subscores",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_strategic_segmentation",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_strategic_segmentation",
+      "short_name": "gold_strategic_segmentation",
+      "layer": "gold",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/medicare_physicians_and_other_supplier_2014.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/medicare_physicians_and_other_supplier_2014.csv",
+      "short_name": "medicare_physicians_and_other_supplier_2014.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "short_name": "nppes_healthcare_provider_taxonomy_code_set.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_care_site.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_care_site.csv",
+      "short_name": "omop_care_site.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_condition_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_condition_occurrence.csv",
+      "short_name": "omop_condition_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_death.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_death.csv",
+      "short_name": "omop_death.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_drug_exposure.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_drug_exposure.csv",
+      "short_name": "omop_drug_exposure.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_observation.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_observation.csv",
+      "short_name": "omop_observation.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_person.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_person.csv",
+      "short_name": "omop_person.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_procedure_occurrence.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_procedure_occurrence.csv",
+      "short_name": "omop_procedure_occurrence.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_provider.csv",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_provider.csv",
+      "short_name": "omop_provider.csv",
+      "layer": "unknown",
+      "namespace": "file"
+    },
+    {
+      "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_clinical_diversity",
+      "name": "/Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_clinical_diversity",
+      "short_name": "gold_clinical_diversity",
+      "layer": "gold",
+      "namespace": "file"
+    }
+  ],
+  "edges": [
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_outpatient_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.hospital_general_info",
+      "target": "bigquery/opportune-ruler-447319-b3.omop_work.bronze_hospital_general_info",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.hospital_general_info",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_hospital_general_info",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.hospital_general_info",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.hospital_general_info",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.silver_quality_features",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_inpatient_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014",
+      "type": "transform"
+    },
+    {
+      "source": "bigquery/bigquery-public-data.cms_codes.icd10_diagnoses_2019",
+      "target": "bigquery/provenance-sandbox-10192025.cms_demo.bronze_icd10_diagnoses_2019",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_risk",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_condition_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_encounter_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedure_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_payer_info",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_patient_journey",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_drug_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_base_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_direct_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_condition_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_encounter_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_quality_indicators",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_drug_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_payer_info",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedure_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedures",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_inpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_inpatient_charges_2011",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_outpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_outpatient_charges_2011",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_care_site.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_cost.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_cost",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_cost",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_death.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_drug_exposure.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation_period.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_payer_plan_period.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_trajectory",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_outcomes",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_effectiveness",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_effectiveness",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_risk",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l14_metric2",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l15_final_metrics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_direct_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_indirect_costs",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_indirect_costs",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_time_adjusted",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_time_adjusted",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_complexity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_age_adjusted",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_efficiency",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_distribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_distribution",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_trajectory",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_regional_inequity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_disparity_magnitude",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_access",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_access_ratio",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_service_diversity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_regional_inequity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_care_accessibility",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_sdoh_impact",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_underserved_flag",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_care_desert",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_integrated_ranking",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_compound_disadvantage",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_sdoh_impact",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_need_supply_gap",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/metric_health_equity_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_population_health_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_temporal_stability",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_predictive_risk",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_facility_access",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_access",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_temporal_stability",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_utilization_intensity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_hospital_general_info",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_facility_access",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh_indicators",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh_indicators",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_vulnerability_score",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_hospital_general_info.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_hospital_general_info",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_inpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_inpatient_charges_2011",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_care_site.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_drug_exposure.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_location.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_location",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_observation_period.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_provider.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_healthcare_access",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedures",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_patient_journey",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/patient_journey",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/demographics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/patient_journey",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/procedures",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_procedure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/procedure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2014",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_concept.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_concept",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_concept.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_concept",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_condition",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/condition",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_cost.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_cost",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_cost.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_cost",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_death.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_death",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_death.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_drug_exposure.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_drug",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_drug_exposure.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd10_diagnoses_2019.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_hcpcs_icd10_diagnoses_2019",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd10_diagnoses_2019.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_icd10",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd9_diagnoses.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_hcpcs_icd9_diagnoses",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd9_diagnoses.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_icd9",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_inpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_inpatient",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_inpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_inpatient_charges_2011",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_outpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_outpatient_charges_2011",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_outpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_outpatient",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2012.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2012",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2012.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2012",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2013.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2013",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2013.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2013",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2014.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2014",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2014.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_physician_2014",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_nppes_healthcare_provider_taxonomy_code_set",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_taxonomy",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_observation.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_observation",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_observation.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_stability",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_benchmarked",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l10_benchmarked",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_vbc",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l1_member_profile",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_utilization_density",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_risk_adjusted_pmpm",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l6_coverage",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_high_value",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/inpatient_charges_2011.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_inpatient_charges_2011",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/care_site.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/cost.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_cost",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/drug_exposure.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/observation_period.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation_period",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/payer_plan_period.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_payer_plan_period",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/provider.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l11_vbc",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_engagement",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l12_engagement",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l13_metric1",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l2_utilization_density",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_risk_adjusted",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l3_risk_adjusted",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_pmpm",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l4_pmpm",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l5_risk_adjusted_pmpm",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l7_high_value",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_attribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l8_attribution",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_l9_stability",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_network_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_network_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_care_coordination",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_outcome_attribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/final_quality_composite",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_strategic_segmentation",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_efficiency",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_comprehensive_scorecard",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_coordination_effectiveness",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_coordination_effectiveness",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_collaboration_density",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_efficiency_index",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_attribution",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_connectivity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_connectivity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_network_influence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_outcome_tiers",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_provider_master",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_volume_metrics",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_clinical_diversity",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_quality_indicators",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_subscores",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_subscores",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/gold/gold_quality_adjusted",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/medicare_physicians_and_other_supplier_2014.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_medicare_physicians_and_other_supplier_2014",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_nppes_healthcare_provider_taxonomy_code_set",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_care_site.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_care_site",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_condition_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_condition_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_death.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_death",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_drug_exposure.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_drug_exposure",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_observation.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_observation",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_person.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_person",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_procedure_occurrence.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_procedure_occurrence",
+      "type": "transform"
+    },
+    {
+      "source": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_provider.csv",
+      "target": "file//Users/dhananjaysharma/Desktop/provenance-local/output/bronze/bronze_omop_provider",
+      "type": "transform"
+    }
+  ],
+  "stats": {
+    "node_count": 213,
+    "edge_count": 261,
+    "is_dag": true
+  }
+}

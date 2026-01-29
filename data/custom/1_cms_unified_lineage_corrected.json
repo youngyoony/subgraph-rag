@@ -1,0 +1,223 @@
+{
+  "notebook": "1_cms_5datasets_integrated",
+  "description": "CMS 5-Dataset Integrated Pipeline - Bronze to Silver to Gold transformations",
+  "transformations": [
+    {
+      "output": "silver_demographics",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person"
+      ],
+      "inputs": [
+        "bronze_person"
+      ],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "age",
+          "expression": "F.year(F.current_date()) - F.col('year_of_birth')"
+        },
+        {
+          "op": "withColumn",
+          "column": "age_group",
+          "expression": "F.when(F.col('age') < 18, 'child').when(F.col('age') < 65, 'adult').otherwise('senior')"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT *, YEAR(CURRENT_DATE()) - year_of_birth AS age, CASE WHEN age < 18 THEN 'child' WHEN age < 65 THEN 'adult' ELSE 'senior' END AS age_group FROM bronze_person",
+      "description": "Patient demographics with calculated age and age group classification"
+    },
+    {
+      "output": "silver_sdoh",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.sdoh_cms_dual_eligible_enrollment.dual_eligible_enrollment_by_county_and_program"
+      ],
+      "inputs": [
+        "bronze_dual"
+      ],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "high_risk",
+          "expression": "F.when(F.col('Public_Total') > 1000, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "dual_pct",
+          "expression": "F.col('Public_Total') / (F.col('Public_Total') + 1) * 100"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT *, CASE WHEN Public_Total > 1000 THEN 1 ELSE 0 END AS high_risk, Public_Total / (Public_Total + 1) * 100 AS dual_pct FROM bronze_dual",
+      "description": "Social Determinants of Health risk indicators from dual enrollment data"
+    },
+    {
+      "output": "silver_procedures",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence"
+      ],
+      "inputs": [
+        "bronze_procedure"
+      ],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": [
+            "person_id"
+          ]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {
+              "alias": "total_procedures",
+              "function": "count(*)"
+            },
+            {
+              "alias": "unique_procedures",
+              "function": "countDistinct(procedure_concept_id)"
+            }
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT person_id, COUNT(*) AS total_procedures, COUNT(DISTINCT procedure_concept_id) AS unique_procedures FROM bronze_procedure GROUP BY person_id",
+      "description": "Aggregated procedure counts per patient"
+    },
+    {
+      "output": "silver_utilization",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_medicare.physicians_and_other_supplier_2014"
+      ],
+      "inputs": [
+        "bronze_physician_2014"
+      ],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": [
+            "npi",
+            "nppes_provider_state"
+          ]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {
+              "alias": "total_services",
+              "function": "sum(line_srvc_cnt)"
+            },
+            {
+              "alias": "total_beneficiaries",
+              "function": "sum(bene_unique_cnt)"
+            },
+            {
+              "alias": "avg_payment",
+              "function": "avg(average_medicare_payment_amt)"
+            }
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "services_per_beneficiary",
+          "expression": "F.col('total_services') / (F.col('total_beneficiaries') + 1)"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT npi, nppes_provider_state, SUM(line_srvc_cnt) AS total_services, SUM(bene_unique_cnt) AS total_beneficiaries, AVG(average_medicare_payment_amt) AS avg_payment, SUM(line_srvc_cnt) / (SUM(bene_unique_cnt) + 1) AS services_per_beneficiary FROM bronze_physician_2014 GROUP BY npi, nppes_provider_state",
+      "description": "Medicare physician service utilization metrics by provider"
+    },
+    {
+      "output": "gold_patient_journey",
+      "layer": "gold",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence"
+      ],
+      "inputs": [
+        "silver_demographics",
+        "silver_procedures"
+      ],
+      "operations": [
+        {
+          "op": "join",
+          "left_table": "silver_demographics",
+          "right_table": "silver_procedures",
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_score",
+          "expression": "F.coalesce(F.col('total_procedures'), F.lit(0)) * 0.5 + F.coalesce(F.col('unique_procedures'), F.lit(0)) * 0.5"
+        },
+        {
+          "op": "withColumn",
+          "column": "risk_category",
+          "expression": "F.when(F.col('complexity_score') < 5, 'low').when(F.col('complexity_score') < 15, 'medium').otherwise('high')"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT d.*, p.total_procedures, p.unique_procedures, COALESCE(p.total_procedures, 0) * 0.5 + COALESCE(p.unique_procedures, 0) * 0.5 AS complexity_score, CASE WHEN complexity_score < 5 THEN 'low' WHEN complexity_score < 15 THEN 'medium' ELSE 'high' END AS risk_category FROM silver_demographics d LEFT JOIN silver_procedures p ON d.person_id = p.person_id",
+      "description": "Integrated patient journey combining demographics with procedure-based complexity scoring"
+    },
+    {
+      "output": "gold_healthcare_access",
+      "layer": "gold",
+      "sources": [
+        "bigquery-public-data.sdoh_cms_dual_eligible_enrollment.dual_eligible_enrollment_by_county_and_program"
+      ],
+      "inputs": [
+        "silver_sdoh"
+      ],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": [
+            "State_Abbr"
+          ]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {
+              "alias": "total_dual_eligible",
+              "function": "sum(Public_Total)"
+            },
+            {
+              "alias": "avg_dual_pct",
+              "function": "avg(dual_pct)"
+            },
+            {
+              "alias": "high_risk_counties",
+              "function": "sum(high_risk)"
+            }
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "access_index",
+          "expression": "F.col('total_dual_eligible') / 1000"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT State_Abbr, SUM(Public_Total) AS total_dual_eligible, AVG(dual_pct) AS avg_dual_pct, SUM(high_risk) AS high_risk_counties, SUM(Public_Total) / 1000 AS access_index FROM silver_sdoh GROUP BY State_Abbr",
+      "description": "State-level healthcare access and equity metrics based on dual enrollment"
+    }
+  ],
+  "summary": {
+    "total_transformations": 23,
+    "layers": {
+      "bronze": 17,
+      "silver": 4,
+      "gold": 2
+    },
+    "edges": 20,
+    "languages": [
+      "pyspark"
+    ]
+  }
+}

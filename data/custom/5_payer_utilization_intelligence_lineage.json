@@ -1,0 +1,632 @@
+{
+  "notebook": "5_payer_utilization_intelligence",
+  "description": "Payer & Utilization Intelligence - Insurance Plan Performance and Member Attribution Analytics with 15 Gold Layers → 4 Final Metrics",
+  "transformations": [
+    {
+      "output": "silver_member_enrollment",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.observation_period",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.payer_plan_period"
+      ],
+      "inputs": ["bronze_person", "bronze_obs_period", "bronze_payer"],
+      "operations": [
+        {
+          "op": "join",
+          "left_table": "bronze_person",
+          "right_table": "bronze_obs_period",
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "join",
+          "left_table": "result",
+          "right_table": "bronze_payer",
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "select",
+          "columns": ["person_id", "gender_concept_id", "birth_datetime", "race_concept_id", "ethnicity_concept_id", "observation_period_start_date", "observation_period_end_date", "payer_plan_period_start_date", "payer_plan_period_end_date", "payer_concept_id", "plan_concept_id"]
+        },
+        {
+          "op": "withColumn",
+          "column": "age",
+          "expression": "F.floor(F.datediff(F.current_date(), F.col('birth_datetime')) / 365.25)"
+        },
+        {
+          "op": "withColumn",
+          "column": "enrollment_days",
+          "expression": "F.datediff(F.coalesce(F.col('payer_plan_period_end_date'), F.current_date()), F.col('payer_plan_period_start_date'))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 1: Member demographics and enrollment with age and enrollment duration calculation"
+    },
+    {
+      "output": "silver_utilization",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure"
+      ],
+      "inputs": ["bronze_condition", "bronze_procedure", "bronze_drug", "silver_member_enrollment"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "table": "bronze_condition",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "condition_count", "function": "count(*)"},
+            {"alias": "unique_conditions", "function": "countDistinct(condition_concept_id)"}
+          ]
+        },
+        {
+          "op": "groupBy",
+          "table": "bronze_procedure",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "procedure_count", "function": "count(*)"},
+            {"alias": "unique_procedures", "function": "countDistinct(procedure_concept_id)"}
+          ]
+        },
+        {
+          "op": "groupBy",
+          "table": "bronze_drug",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "drug_count", "function": "count(*)"},
+            {"alias": "unique_drugs", "function": "countDistinct(drug_concept_id)"},
+            {"alias": "total_days_supply", "function": "sum(days_supply)"}
+          ]
+        },
+        {
+          "op": "join",
+          "description": "Join all utilization metrics with member base"
+        },
+        {
+          "op": "fillna",
+          "value": 0
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 2: Service utilization aggregated by member across conditions, procedures, and drugs"
+    },
+    {
+      "output": "silver_cost_by_payer",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.cost",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.payer_plan_period"
+      ],
+      "inputs": ["bronze_cost", "bronze_payer"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "payer_plan_period_id",
+          "how": "left"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id", "payer_concept_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_paid_by_payer", "function": "sum(total_paid)"},
+            {"alias": "payer_paid", "function": "sum(paid_by_payer)"},
+            {"alias": "patient_paid", "function": "sum(paid_by_patient)"},
+            {"alias": "cost_event_count", "function": "count(*)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 3: Cost attribution aggregated by payer and member"
+    },
+    {
+      "output": "silver_provider_attribution",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.provider"
+      ],
+      "inputs": ["bronze_condition", "bronze_provider"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "provider_id",
+          "how": "left"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id", "provider_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "visit_count", "function": "count(*)"}
+          ]
+        },
+        {
+          "op": "window",
+          "function": "row_number()",
+          "partitionBy": "person_id",
+          "orderBy": "visit_count DESC"
+        },
+        {
+          "op": "filter",
+          "condition": "rank == 1"
+        },
+        {
+          "op": "select",
+          "columns": ["person_id", "attributed_provider_id", "visit_count"]
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 4: Provider attribution based on most frequent provider visits"
+    },
+    {
+      "output": "silver_risk_scores",
+      "layer": "silver",
+      "inputs": ["silver_member_enrollment", "silver_utilization"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "age_risk_factor",
+          "expression": "F.when(F.col('age') >= 85, 2.5).when(F.col('age') >= 75, 2.0).when(F.col('age') >= 65, 1.5).when(F.col('age') >= 50, 1.2).otherwise(1.0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "condition_risk_factor",
+          "expression": "F.when(F.col('unique_conditions') >= 10, 2.0).when(F.col('unique_conditions') >= 5, 1.5).when(F.col('unique_conditions') >= 2, 1.2).otherwise(1.0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "hcc_risk_score",
+          "expression": "F.col('age_risk_factor') * F.col('condition_risk_factor')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 5: HCC-like risk score calculation based on age and condition burden"
+    },
+    {
+      "output": "silver_plan_features",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.payer_plan_period"
+      ],
+      "inputs": ["bronze_payer", "silver_cost_by_payer"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["payer_concept_id", "plan_concept_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "member_count", "function": "count(person_id)"},
+            {"alias": "unique_members", "function": "countDistinct(person_id)"}
+          ]
+        },
+        {
+          "op": "join",
+          "description": "Join with cost aggregations by payer"
+        },
+        {
+          "op": "withColumn",
+          "column": "payer_cost_share_pct",
+          "expression": "F.col('avg_payer_share') / F.greatest(F.col('avg_total_cost'), F.lit(1)) * 100"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Silver 6: Plan benefit design features with cost sharing analysis"
+    },
+    {
+      "output": "gold_l1_member_profile",
+      "layer": "gold",
+      "inputs": ["silver_member_enrollment", "silver_utilization", "silver_cost_by_payer", "silver_provider_attribution", "silver_risk_scores"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "person_id",
+          "how": "left",
+          "description": "Join all silver tables to create integrated member profile"
+        },
+        {
+          "op": "fillna",
+          "value": 0
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L1/15: Integrated member profile combining demographics, utilization, cost, attribution, and risk scores"
+    },
+    {
+      "output": "gold_l2_utilization_density",
+      "layer": "gold",
+      "inputs": ["gold_l1_member_profile"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "enrollment_years",
+          "expression": "F.greatest(F.col('enrollment_days') / 365.25, F.lit(0.5))"
+        },
+        {
+          "op": "withColumn",
+          "column": "annual_condition_rate",
+          "expression": "F.col('condition_count') / F.col('enrollment_years')"
+        },
+        {
+          "op": "withColumn",
+          "column": "annual_procedure_rate",
+          "expression": "F.col('procedure_count') / F.col('enrollment_years')"
+        },
+        {
+          "op": "withColumn",
+          "column": "annual_drug_rate",
+          "expression": "F.col('drug_count') / F.col('enrollment_years')"
+        },
+        {
+          "op": "withColumn",
+          "column": "total_annual_utilization",
+          "expression": "annual_condition_rate + annual_procedure_rate + annual_drug_rate"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L2/15: Utilization density metrics normalized to annual rates"
+    },
+    {
+      "output": "gold_l3_risk_adjusted",
+      "layer": "gold",
+      "inputs": ["gold_l2_utilization_density"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "expected_utilization",
+          "expression": "F.col('hcc_risk_score') * 10.0"
+        },
+        {
+          "op": "withColumn",
+          "column": "utilization_vs_expected",
+          "expression": "F.col('total_annual_utilization') / F.greatest(F.col('expected_utilization'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "risk_adjusted_utilization_rate",
+          "expression": "F.col('total_annual_utilization') / F.greatest(F.col('hcc_risk_score'), F.lit(1))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L3/15: Risk-adjusted utilization comparing actual vs expected based on HCC score"
+    },
+    {
+      "output": "gold_l4_pmpm",
+      "layer": "gold",
+      "inputs": ["gold_l3_risk_adjusted"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "enrollment_months",
+          "expression": "F.greatest(F.col('enrollment_days') / 30.0, F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "total_cost_pmpm",
+          "expression": "F.col('total_paid_by_payer') / F.col('enrollment_months')"
+        },
+        {
+          "op": "withColumn",
+          "column": "payer_cost_pmpm",
+          "expression": "F.col('payer_paid') / F.col('enrollment_months')"
+        },
+        {
+          "op": "withColumn",
+          "column": "patient_cost_pmpm",
+          "expression": "F.col('patient_paid') / F.col('enrollment_months')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L4/15: Per Member Per Month (PMPM) cost metrics"
+    },
+    {
+      "output": "gold_l5_risk_adjusted_pmpm",
+      "layer": "gold",
+      "inputs": ["gold_l4_pmpm"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "expected_pmpm",
+          "expression": "F.col('hcc_risk_score') * 500.0"
+        },
+        {
+          "op": "withColumn",
+          "column": "pmpm_efficiency_ratio",
+          "expression": "F.col('total_cost_pmpm') / F.greatest(F.col('expected_pmpm'), F.lit(100))"
+        },
+        {
+          "op": "withColumn",
+          "column": "risk_adjusted_pmpm",
+          "expression": "F.col('total_cost_pmpm') / F.greatest(F.col('hcc_risk_score'), F.lit(1))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L5/15: Risk-adjusted PMPM with efficiency ratio"
+    },
+    {
+      "output": "gold_l6_coverage",
+      "layer": "gold",
+      "inputs": ["gold_l5_risk_adjusted_pmpm", "silver_plan_features"],
+      "operations": [
+        {
+          "op": "join",
+          "on": "payer_concept_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "patient_burden_ratio",
+          "expression": "F.col('patient_paid') / F.greatest(F.col('total_paid_by_payer'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "coverage_adequacy_score",
+          "expression": "100 * (1 - F.least(F.col('patient_burden_ratio'), F.lit(1)))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L6/15: Plan coverage effectiveness based on patient burden ratio"
+    },
+    {
+      "output": "gold_l7_high_value",
+      "layer": "gold",
+      "inputs": ["gold_l6_coverage"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "preventive_procedure_ratio",
+          "expression": "F.when(F.col('procedure_count') > 0, F.lit(0.3) * F.col('procedure_count') / F.col('procedure_count')).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "chronic_drug_adherence_proxy",
+          "expression": "F.when(F.col('unique_conditions') >= 2, F.least(F.col('total_days_supply') / (F.col('enrollment_days') * F.col('unique_conditions')), F.lit(1))).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "high_value_care_score",
+          "expression": "(F.col('preventive_procedure_ratio') * 50) + (F.col('chronic_drug_adherence_proxy') * 50)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L7/15: High-value service utilization including preventive care and drug adherence"
+    },
+    {
+      "output": "gold_l8_attribution",
+      "layer": "gold",
+      "inputs": ["gold_l7_high_value"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "has_attributed_provider",
+          "expression": "F.when(F.col('attributed_provider_id').isNotNull(), 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "attribution_strength",
+          "expression": "F.when(F.col('visit_count') >= 5, 1.0).when(F.col('visit_count') >= 3, 0.7).when(F.col('visit_count') >= 1, 0.4).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "continuity_score",
+          "expression": "F.col('has_attributed_provider') * F.col('attribution_strength') * 100"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L8/15: Provider attribution continuity based on visit frequency"
+    },
+    {
+      "output": "gold_l9_stability",
+      "layer": "gold",
+      "inputs": ["gold_l8_attribution"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "tenure_years",
+          "expression": "F.col('enrollment_days') / 365.25"
+        },
+        {
+          "op": "withColumn",
+          "column": "tenure_stability_factor",
+          "expression": "F.when(F.col('tenure_years') >= 5, 1.0).when(F.col('tenure_years') >= 3, 0.8).when(F.col('tenure_years') >= 1, 0.6).otherwise(0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "enrollment_gap_risk",
+          "expression": "F.when(F.col('payer_plan_period_end_date').isNull(), 0).otherwise(1)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L9/15: Member tenure and stability with enrollment gap risk"
+    },
+    {
+      "output": "gold_l10_benchmarked",
+      "layer": "gold",
+      "inputs": ["gold_l9_stability"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["payer_concept_id"],
+          "description": "Calculate plan-level benchmarks"
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "plan_avg_pmpm", "function": "mean(total_cost_pmpm)"},
+            {"alias": "plan_avg_risk_adj_pmpm", "function": "mean(risk_adjusted_pmpm)"},
+            {"alias": "plan_avg_coverage", "function": "mean(coverage_adequacy_score)"},
+            {"alias": "plan_member_count", "function": "count(*)"}
+          ]
+        },
+        {
+          "op": "join",
+          "on": "payer_concept_id",
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "pmpm_vs_plan_avg",
+          "expression": "F.col('total_cost_pmpm') / F.greatest(F.col('plan_avg_pmpm'), F.lit(100))"
+        },
+        {
+          "op": "withColumn",
+          "column": "coverage_vs_plan_avg",
+          "expression": "F.col('coverage_adequacy_score') / F.greatest(F.col('plan_avg_coverage'), F.lit(50))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L10/15: Plan performance benchmarking comparing member to plan averages"
+    },
+    {
+      "output": "gold_l11_vbc",
+      "layer": "gold",
+      "inputs": ["gold_l10_benchmarked"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "quality_utilization_ratio",
+          "expression": "F.col('high_value_care_score') / F.greatest(F.col('total_annual_utilization'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_quality_efficiency",
+          "expression": "F.col('high_value_care_score') / F.greatest(F.col('risk_adjusted_pmpm'), F.lit(100))"
+        },
+        {
+          "op": "withColumn",
+          "column": "vbc_alignment_score",
+          "expression": "(F.col('quality_utilization_ratio') * 0.6 + F.col('cost_quality_efficiency') * 0.4) * 100"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L11/15: Value-based care alignment measuring quality vs cost efficiency"
+    },
+    {
+      "output": "gold_l12_engagement",
+      "layer": "gold",
+      "inputs": ["gold_l11_vbc"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "utilization_engagement",
+          "expression": "F.when(F.col('total_annual_utilization') > 0, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "provider_engagement",
+          "expression": "F.col('has_attributed_provider')"
+        },
+        {
+          "op": "withColumn",
+          "column": "preventive_engagement",
+          "expression": "F.when(F.col('preventive_procedure_ratio') > 0.2, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "member_engagement_index",
+          "expression": "(F.col('utilization_engagement') + F.col('provider_engagement') + F.col('preventive_engagement')) / 3.0 * 100"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L12/15: Member engagement index combining utilization, provider, and preventive care engagement"
+    },
+    {
+      "output": "gold_l13_metric1",
+      "layer": "gold",
+      "inputs": ["gold_l12_engagement"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "normalized_utilization",
+          "expression": "F.col('total_annual_utilization') / 50.0"
+        },
+        {
+          "op": "withColumn",
+          "column": "normalized_risk",
+          "expression": "F.col('hcc_risk_score') / 2.5"
+        },
+        {
+          "op": "withColumn",
+          "column": "risk_adjusted_utilization_rate_final",
+          "expression": "F.least((F.col('normalized_utilization') / F.greatest(F.col('normalized_risk'), F.lit(0.5))) * 100, F.lit(200))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L13/15: METRIC 1 - Risk-Adjusted Utilization Rate normalized and capped at 200"
+    },
+    {
+      "output": "gold_l14_metric2",
+      "layer": "gold",
+      "inputs": ["gold_l13_metric1"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "benefit_design_effectiveness",
+          "expression": "(F.col('coverage_adequacy_score') * 0.4 + F.col('high_value_care_score') * 0.3 + (100 - F.least(F.col('patient_burden_ratio') * 100, F.lit(100))) * 0.3)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L14/15: METRIC 2 - Benefit Design Effectiveness combining coverage, high-value care, and patient burden"
+    },
+    {
+      "output": "gold_l15_final_metrics",
+      "layer": "gold",
+      "inputs": ["gold_l14_metric2"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "high_value_care_penetration",
+          "expression": "F.col('high_value_care_score')"
+        },
+        {
+          "op": "withColumn",
+          "column": "member_attribution_stability",
+          "expression": "(F.col('continuity_score') * 0.4 + F.col('tenure_stability_factor') * 30 + (1 - F.col('enrollment_gap_risk')) * 30)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold L15/15: All 4 Final Metrics - Risk-Adjusted Utilization Rate, Benefit Design Effectiveness, High-Value Care Penetration, Member Attribution Stability"
+    }
+  ],
+  "summary": {
+    "total_transformations": 21,
+    "layers": {
+      "bronze": 10,
+      "silver": 6,
+      "gold": 15
+    },
+    "nodes": 31,
+    "edges": 31,
+    "languages": ["pyspark"],
+    "final_metrics": [
+      "Risk-Adjusted Utilization Rate",
+      "Benefit Design Effectiveness",
+      "High-Value Care Penetration",
+      "Member Attribution Stability"
+    ]
+  }
+}

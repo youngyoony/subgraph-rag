@@ -1,0 +1,61 @@
+﻿notebook,query_id,query,answer,difficulty,Data
+1_cms_unified,1.1,What is the total number of nodes in pipeline 1?,23 nodes (17 Bronze + 4 Silver + 2 Gold),easy,1
+1_cms_unified,1.2,What are the input tables for silver_demographics?,"bronze_person, bronze_observation_period",easy,1
+1_cms_unified,1.3,How is the age column calculated in silver_demographics?,year(current_date) - year_of_birth,easy,1
+1_cms_unified,1.4,What are the age_group classification criteria in silver_demographics?,"child (<18), adult (18-64), senior (≥65)",medium,1
+1_cms_unified,1.5,What is the condition for the high_risk flag in silver_sdoh?,Public_Total > 1000,easy,1
+1_cms_unified,1.6,What aggregations are performed in silver_procedures?,"count(*) as total_procedures, countDistinct(procedure_concept_id) as unique_procedures, grouped by person_id",medium,1
+1_cms_unified,1.7,What is the formula for complexity_score in gold_patient_journey?,(total_procedures × 0.5) + (unique_procedures × 0.5),medium,1
+1_cms_unified,1.8,What are the risk_category thresholds in gold_patient_journey?,"low (<5), medium (5-15), high (>15)",medium,1
+1_cms_unified,1.9,What is the formula for access_index in gold_healthcare_access?,total_dual_eligible / 1000,easy,1
+1_cms_unified,1.1,What is the total number of edges in pipeline 1?,20 edges,easy,1
+1_cms_unified,1.11,Trace the full data lineage from bronze_person to gold_patient_journey and list all transformations applied.,"bronze_person → silver_demographics (join with bronze_observation_period, calculate age, classify age_group) → gold_patient_journey (join with silver_procedures, calculate complexity_score, assign risk_category)",hard,1
+1_cms_unified,1.12,If a patient has 10 total_procedures and 6 unique_procedures with age 70 what would be their complexity_score and risk_category?,"complexity_score = (10×0.5) + (6×0.5) = 8.0, risk_category = medium (between 5-15)",hard,1
+2_cost_analytics,2.1,What is the total number of nodes in pipeline 2?,33 nodes (12 Bronze + 6 Silver + 15 Gold),easy,2
+2_cost_analytics,2.2,What are the encounter_base_cost tiers in silver_encounter_costs?,"≥5 conditions: $5000, ≥3 conditions: $2000, else: $500",medium,2
+2_cost_analytics,2.3,What are the procedure cost estimation rules in silver_procedure_costs?,"concept_id <4M: $1500, <4.1M: $5000, else: $15000",medium,2
+2_cost_analytics,2.4,What are the drug_unit_cost tiers in silver_drug_costs?,"concept_id <40M: $25, <45M: $150, else: $800",medium,2
+2_cost_analytics,2.5,What is the formula for TCOC (Total Cost of Care Index)?,(annualized_cost × 0.50) + (age_adjusted_excess × 0.20) + (projected_1yr × 0.20) + (indirect_cost × 0.10),medium,2
+2_cost_analytics,2.6,What are the weights for CES (Cost-Effectiveness Score)?,value × 0.40 + efficiency × 0.30 + health × 0.20 + complexity × 0.10,medium,2
+2_cost_analytics,2.7,What are the CES grade thresholds?,"A (≥80), B (≥60), C (≥40), D (≥20), F (<20)",easy,2
+2_cost_analytics,2.8,What are the 4 final metrics in pipeline 2?,"TCOC (Total Cost of Care Index), CES (Cost-Effectiveness Score), FRS (Financial Risk Stratification), CTP (Cost Trajectory Projection)",easy,2
+2_cost_analytics,2.9,What are the CTP direction classifications?,"steep_increase, moderate_increase, slight_increase, stable, decreasing",easy,2
+2_cost_analytics,2.1,What is the total number of edges in pipeline 2?,28 edges,easy,2
+2_cost_analytics,2.11,A patient has 4 conditions with concept_id 4050000 and takes 3 drugs with concept_id 42000000. Calculate their estimated encounter_base_cost procedure_cost and drug_cost.,"encounter_base_cost = $2000 (≥3 conditions), procedure_cost = $5000 (concept_id 4050000 is ≥4M and <4.1M), drug_unit_cost = $150 (concept_id 42000000 is ≥40M and <45M)",hard,2
+2_cost_analytics,2.12,Explain the complete vertical transformation chain from Gold L1 to Gold L15 and identify at which layer each of the 4 final metrics is calculated.,L1-L12: Base cost aggregation through risk stratification. L13: TCOC calculated (annualized + age_adjusted + projected + indirect). L14: CES calculated (value + efficiency + health + complexity). L15: FRS and CTP calculated together,hard,2
+3_geographic_health,3.1,What is the total number of nodes in pipeline 3?,36 nodes (11 Bronze + 6 Silver + 15 Gold + 4 Metric),easy,3
+3_geographic_health,3.2,What diversity metrics are calculated in silver_regional_demographics?,"gender_diversity, race_diversity, ethnicity_diversity",easy,3
+3_geographic_health,3.3,What is the threshold for complex_patients_count in silver_health_outcomes?,conditions ≥ 3,easy,3
+3_geographic_health,3.4,What are the tier classifications in gold_integrated_ranking?,"Top 20%, Above Average, Below Average, Bottom 20%",medium,3
+3_geographic_health,3.5,What are the risk_tier classifications in gold_predictive_risk?,"Critical, High, Moderate, Low",easy,3
+3_geographic_health,3.6,What is the formula for Health Equity Index?,(accessibility × 0.35) + (diversity × 0.25) - (burden × 0.20) + (1 - percentile) × 0.20,medium,3
+3_geographic_health,3.7,What are the desert_classification categories in Care Desert Score?,"Severe Desert, Moderate Desert, Mild Desert, Adequate Coverage",easy,3
+3_geographic_health,3.8,What are the sdoh_impact_tier classifications?,"Severe, High, Moderate, Low",easy,3
+3_geographic_health,3.9,What are the 4 final metrics in pipeline 3?,"Health Equity Index, Care Desert Score, SDOH Impact, Geographic Disparity Magnitude",easy,3
+3_geographic_health,3.1,What is the total number of edges in pipeline 3?,54 edges,easy,3
+3_geographic_health,3.11,A region has accessibility=0.8 diversity=0.6 burden=0.3 and percentile=0.7. Calculate the Health Equity Index and determine the equity_grade.,"Health Equity Index = (0.8×0.35) + (0.6×0.25) - (0.3×0.20) + (1-0.7)×0.20 = 0.28 + 0.15 - 0.06 + 0.06 = 0.43 → scaled to 43, equity_grade = C (≥40)",hard,3
+3_geographic_health,3.12,Why does pipeline 3 have significantly more edges (54) compared to other pipelines? Explain the structural reason.,Pipeline 3 has complex cross-layer dependencies where multiple Silver tables feed into Gold layers and metric nodes pull from multiple Gold sources. The 4 separate Metric nodes each have multiple input edges from different Gold layers creating a dense connection pattern.,hard,3
+4_provider_performance,4.1,What is the total number of nodes in pipeline 4?,35 nodes (10 Bronze + 6 Silver + 15 Gold + 4 Metric),easy,4
+4_provider_performance,4.2,What is the formula for total_encounters in silver_clinical_activity?,procedure_count + drug_count + condition_count,easy,4
+4_provider_performance,4.3,What is the formula for mortality_rate in silver_patient_outcomes?,deceased_patients / total_patients,easy,4
+4_provider_performance,4.4,What is the condition for is_readmission in silver_quality_indicators?,days_to_next_visit between 0 and 30 days,medium,4
+4_provider_performance,4.5,What is the formula for network_centrality in silver_referral_network?,outbound_referral_count + inbound_referral_count,easy,4
+4_provider_performance,4.6,What are the weights for comprehensive_score in gold_comprehensive_scorecard?,efficiency × 0.3 + quality × 0.3 + collaboration × 0.2 + influence × 0.2,medium,4
+4_provider_performance,4.7,What are the segment classifications in gold_strategic_segmentation?,"Star Performer, Network Leader, Solid Performer, High Volume, Emerging Provider",medium,4
+4_provider_performance,4.8,What are the quality_rating thresholds in Provider Quality Composite?,"Excellent (≥80), Good (≥60), Fair (≥40), Needs Improvement (<40)",easy,4
+4_provider_performance,4.9,What are the 4 final metrics in pipeline 4?,"Provider Quality Composite, Network Efficiency Score, Patient Outcome Attribution, Care Coordination Index",easy,4
+4_provider_performance,4.1,What is the total number of edges in pipeline 4?,47 edges,easy,4
+4_provider_performance,4.11,A provider has efficiency_score=75 quality_composite=80 collaboration_score=60 and influence_score=50. Calculate their comprehensive_score and determine their likely segment.,comprehensive_score = (75×0.3) + (80×0.3) + (60×0.2) + (50×0.2) = 22.5 + 24 + 12 + 10 = 68.5. With high efficiency and quality scores this provider would likely be classified as 'Solid Performer',hard,4
+4_provider_performance,4.12,Explain how the referral network analysis in silver_referral_network detects provider relationships and what the network_centrality metric indicates about a provider's role.,silver_referral_network joins procedure and drug tables by patient to detect when different providers treat the same patient. It filters where provider_from != provider_to to identify referral patterns. network_centrality (inbound + outbound referrals) indicates how connected a provider is - high centrality suggests a 'Hub' role in the network.,hard,4
+5_payer_utilization,5.1,What is the total number of nodes in pipeline 5?,31 nodes (10 Bronze + 6 Silver + 15 Gold),easy,5
+5_payer_utilization,5.2,What are the age_risk_factor thresholds in silver_risk_scores?,"≥85: 2.5, ≥75: 2.0, ≥65: 1.5, ≥50: 1.2, else: 1.0",medium,5
+5_payer_utilization,5.3,What are the condition_risk_factor thresholds in silver_risk_scores?,"≥10 conditions: 2.0, ≥5: 1.5, ≥2: 1.2, else: 1.0",medium,5
+5_payer_utilization,5.4,What is the formula for hcc_risk_score?,age_risk_factor × condition_risk_factor,easy,5
+5_payer_utilization,5.5,What are the tenure_stability_factor thresholds in gold_l9_stability?,"≥5 years: 1.0, ≥3 years: 0.8, ≥1 year: 0.6, else: 0.3",medium,5
+5_payer_utilization,5.6,What is the formula for vbc_alignment_score in gold_l11_vbc?,(quality_utilization_ratio × 0.6 + cost_quality_efficiency × 0.4) × 100,medium,5
+5_payer_utilization,5.7,What is the formula for member_engagement_index in gold_l12_engagement?,(utilization_engagement + provider_engagement + preventive_engagement) / 3.0 × 100,medium,5
+5_payer_utilization,5.8,What is the formula for Benefit Design Effectiveness?,(coverage_adequacy_score × 0.4) + (high_value_care_score × 0.3) + ((100 - patient_burden_ratio × 100) × 0.3),medium,5
+5_payer_utilization,5.9,What is the formula for Member Attribution Stability?,(continuity_score × 0.4) + (tenure_stability_factor × 30) + ((1 - enrollment_gap_risk) × 30),medium,5
+5_payer_utilization,5.1,What are the 4 final metrics in pipeline 5?,"Risk-Adjusted Utilization Rate, Benefit Design Effectiveness, High-Value Care Penetration, Member Attribution Stability",easy,5
+5_payer_utilization,5.11,A member is 72 years old with 6 unique conditions. Calculate their hcc_risk_score and explain what this indicates about their expected healthcare utilization.,"age_risk_factor = 1.5 (≥65 but <75), condition_risk_factor = 1.5 (≥5 but <10), hcc_risk_score = 1.5 × 1.5 = 2.25. This indicates the member is expected to utilize 2.25x more healthcare resources than a baseline healthy young adult.",hard,5
+5_payer_utilization,5.12,Compare the structure of pipeline 5 (31 nodes) with pipelines 3 and 4 (36 and 35 nodes). Why does pipeline 5 have fewer nodes and what architectural decision explains this difference?,Pipelines 3 and 4 have separate Metric layer nodes (4 each) that are distinct from Gold layers. Pipeline 5 integrates all 4 final metrics directly into Gold L15 as columns rather than creating separate Metric nodes. This architectural choice reduces node count but maintains the same analytical output.,hard,5

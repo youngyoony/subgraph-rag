@@ -1,0 +1,666 @@
+{
+  "notebook": "3_geographic_health_equity",
+  "description": "Geographic Health Equity Analysis - Regional Healthcare Access and Disparity Intelligence Pipeline with 15 Gold Layers → 4 Final Metrics",
+  "transformations": [
+    {
+      "output": "silver_regional_demographics",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.location"
+      ],
+      "inputs": ["bronze_person", "bronze_location"],
+      "operations": [
+        {
+          "op": "join",
+          "left_table": "bronze_person",
+          "right_table": "bronze_location",
+          "on": "location_id",
+          "how": "left"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["state", "zip", "county"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "population_count", "function": "count(*)"},
+            {"alias": "avg_birth_year", "function": "avg(year_of_birth)"},
+            {"alias": "gender_diversity", "function": "countDistinct(gender_concept_id)"},
+            {"alias": "race_diversity", "function": "countDistinct(race_concept_id)"},
+            {"alias": "ethnicity_diversity", "function": "countDistinct(ethnicity_concept_id)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "processed_at",
+          "expression": "F.current_timestamp()"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Regional demographics profile with population counts and diversity metrics"
+    },
+    {
+      "output": "silver_provider_density",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.provider",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.care_site",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.location"
+      ],
+      "inputs": ["bronze_provider", "bronze_care_site", "bronze_location"],
+      "operations": [
+        {
+          "op": "join",
+          "left_table": "bronze_provider",
+          "right_table": "bronze_care_site",
+          "on": "care_site_id",
+          "how": "left"
+        },
+        {
+          "op": "join",
+          "left_table": "result",
+          "right_table": "bronze_location",
+          "on": "location_id",
+          "how": "left"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["state", "zip", "county"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_providers", "function": "count(*)"},
+            {"alias": "specialty_diversity", "function": "countDistinct(specialty_concept_id)"},
+            {"alias": "care_sites_count", "function": "countDistinct(care_site_id)"},
+            {"alias": "avg_provider_age", "function": "avg(year_of_birth)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "description": "Provider density by region with specialty and care site counts"
+    },
+    {
+      "output": "silver_service_utilization",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.location"
+      ],
+      "inputs": ["bronze_condition", "bronze_procedure", "bronze_drug", "bronze_person", "bronze_location"],
+      "operations": [
+        {
+          "op": "join",
+          "description": "Join person with location to get regional info"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["state", "zip", "county"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "condition_events", "function": "count(condition_occurrence)"},
+            {"alias": "procedure_events", "function": "count(procedure_occurrence)"},
+            {"alias": "drug_events", "function": "count(drug_exposure)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "total_events",
+          "expression": "F.col('condition_events') + F.col('procedure_events') + F.col('drug_events')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Regional service utilization combining conditions, procedures, and drug events"
+    },
+    {
+      "output": "silver_health_outcomes",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.location"
+      ],
+      "inputs": ["bronze_condition", "bronze_person", "bronze_location"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["state", "zip", "county", "person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "condition_count", "function": "countDistinct(condition_concept_id)"}
+          ]
+        },
+        {
+          "op": "groupBy",
+          "columns": ["state", "zip", "county"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "avg_conditions_per_patient", "function": "avg(condition_count)"},
+            {"alias": "max_conditions_per_patient", "function": "max(condition_count)"},
+            {"alias": "complex_patients_count", "function": "count(when(condition_count >= 3, 1))"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "description": "Regional health outcomes with chronic condition burden metrics"
+    },
+    {
+      "output": "silver_sdoh_indicators",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.sdoh_cms_dual_eligible_enrollment.dual_eligible_enrollment_by_county_and_program"
+      ],
+      "inputs": ["bronze_dual_enroll"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["State_Abbr", "County_Name"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_dual_eligible", "function": "sum(Public_Total)"},
+            {"alias": "qmb_plus_full_count", "function": "sum(QMB_plus_Full)"},
+            {"alias": "qmb_only_count", "function": "sum(QMB_Only)"},
+            {"alias": "slmb_only_count", "function": "sum(SLMB_only)"},
+            {"alias": "slmb_plus_full_count", "function": "sum(SLMB_plus_Full)"},
+            {"alias": "qdwi_count", "function": "sum(QDWI)"},
+            {"alias": "qi_count", "function": "sum(QI)"},
+            {"alias": "other_dual_count", "function": "sum(Other_full)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "dual_eligible_ratio",
+          "expression": "F.col('qmb_plus_full_count') / (F.col('total_dual_eligible') + 1)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Social Determinants of Health indicators from dual enrollment data"
+    },
+    {
+      "output": "silver_facility_access",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_medicare.hospital_general_info"
+      ],
+      "inputs": ["bronze_hospital_info"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["state", "zip_code", "county_name"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "hospital_count", "function": "count(*)"},
+            {"alias": "hospital_type_diversity", "function": "countDistinct(hospital_type)"},
+            {"alias": "ownership_diversity", "function": "countDistinct(hospital_ownership)"},
+            {"alias": "avg_hospital_rating", "function": "avg(hospital_overall_rating)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "description": "Facility access and quality metrics by region"
+    },
+    {
+      "output": "gold_population_health_index",
+      "layer": "gold",
+      "inputs": ["silver_regional_demographics", "silver_health_outcomes"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "diversity_score",
+          "expression": "(F.col('gender_diversity') + F.col('race_diversity') + F.col('ethnicity_diversity')) / 3"
+        },
+        {
+          "op": "withColumn",
+          "column": "health_burden_score",
+          "expression": "F.col('avg_conditions_per_patient') * F.col('complex_patients_count')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 1/15: Population health index combining demographics and health outcomes"
+    },
+    {
+      "output": "gold_access_ratio",
+      "layer": "gold",
+      "inputs": ["silver_regional_demographics", "silver_provider_density"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "providers_per_1000",
+          "expression": "(F.col('total_providers') / F.col('population_count')) * 1000"
+        },
+        {
+          "op": "withColumn",
+          "column": "specialties_per_1000",
+          "expression": "(F.col('specialty_diversity') / F.col('population_count')) * 1000"
+        },
+        {
+          "op": "withColumn",
+          "column": "care_sites_per_1000",
+          "expression": "(F.col('care_sites_count') / F.col('population_count')) * 1000"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 2/15: Provider-to-population access ratio per 1000 residents"
+    },
+    {
+      "output": "gold_utilization_intensity",
+      "layer": "gold",
+      "inputs": ["silver_service_utilization", "silver_regional_demographics"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "events_per_capita",
+          "expression": "F.col('total_events') / F.col('population_count')"
+        },
+        {
+          "op": "withColumn",
+          "column": "condition_intensity",
+          "expression": "F.col('condition_events') / F.col('population_count')"
+        },
+        {
+          "op": "withColumn",
+          "column": "procedure_intensity",
+          "expression": "F.col('procedure_events') / F.col('population_count')"
+        },
+        {
+          "op": "withColumn",
+          "column": "drug_intensity",
+          "expression": "F.col('drug_events') / F.col('population_count')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 3/15: Service utilization intensity per capita by event type"
+    },
+    {
+      "output": "gold_vulnerability_score",
+      "layer": "gold",
+      "inputs": ["silver_sdoh_indicators"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "vulnerability_index",
+          "expression": "(F.col('dual_eligible_ratio') * 0.4 + (F.col('qmb_only_count') / F.col('total_dual_eligible')) * 0.3 + (F.col('other_dual_count') / F.col('total_dual_eligible')) * 0.3)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 4/15: Population vulnerability score based on SDOH factors"
+    },
+    {
+      "output": "gold_quality_access",
+      "layer": "gold",
+      "inputs": ["silver_facility_access", "silver_regional_demographics"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "quality_adjusted_access",
+          "expression": "(F.col('hospital_count') / F.col('population_count') * 10000) * F.coalesce(F.col('avg_hospital_rating'), F.lit(3))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 5/15: Quality-adjusted access score combining quantity and ratings"
+    },
+    {
+      "output": "gold_service_diversity",
+      "layer": "gold",
+      "inputs": ["silver_provider_density"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "service_diversity_index",
+          "expression": "(F.col('specialty_diversity') * 0.6 + F.col('care_sites_count') * 0.4) / 10"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 6/15: Healthcare service diversity index"
+    },
+    {
+      "output": "gold_care_accessibility",
+      "layer": "gold",
+      "inputs": ["gold_access_ratio", "gold_service_diversity"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "accessibility_composite",
+          "expression": "(F.coalesce(F.col('providers_per_1000'), F.lit(0)) * 0.4 + F.coalesce(F.col('service_diversity_index'), F.lit(0)) * 0.3 + F.coalesce(F.col('specialties_per_1000'), F.lit(0)) * 0.3)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 7/15: Multi-dimensional care accessibility composite score"
+    },
+    {
+      "output": "gold_need_supply_gap",
+      "layer": "gold",
+      "inputs": ["gold_population_health_index", "gold_care_accessibility"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "gap_magnitude",
+          "expression": "F.col('health_burden_score') - F.col('accessibility_composite')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 8/15: Healthcare need vs supply gap analysis"
+    },
+    {
+      "output": "gold_underserved_flag",
+      "layer": "gold",
+      "inputs": ["gold_need_supply_gap"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "gap_percentile",
+          "expression": "F.percent_rank().over(W.orderBy(F.col('gap_magnitude').desc()))"
+        },
+        {
+          "op": "withColumn",
+          "column": "underserved_severity",
+          "expression": "F.when(F.col('gap_percentile') < 0.1, 'Critical').when(F.col('gap_percentile') < 0.3, 'High').when(F.col('gap_percentile') < 0.6, 'Moderate').otherwise('Low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 9/15: Underserved area classification with severity levels"
+    },
+    {
+      "output": "gold_utilization_efficiency",
+      "layer": "gold",
+      "inputs": ["gold_utilization_intensity", "gold_care_accessibility"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "efficiency_ratio",
+          "expression": "F.col('events_per_capita') / (F.coalesce(F.col('accessibility_composite'), F.lit(1)) + 0.01)"
+        },
+        {
+          "op": "withColumn",
+          "column": "normalized_efficiency",
+          "expression": "F.when(F.col('efficiency_ratio') > 2, 'Over-utilized').when(F.col('efficiency_ratio') > 0.5, 'Balanced').otherwise('Under-utilized')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 10/15: Utilization efficiency score relative to accessibility"
+    },
+    {
+      "output": "gold_regional_inequity",
+      "layer": "gold",
+      "inputs": ["gold_care_accessibility"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["state"],
+          "aggregations": [{"alias": "state_avg_access", "function": "avg(accessibility_composite)"}]
+        },
+        {
+          "op": "withColumn",
+          "column": "access_deviation",
+          "expression": "F.col('accessibility_composite') - F.col('state_avg_access')"
+        },
+        {
+          "op": "withColumn",
+          "column": "inequity_magnitude",
+          "expression": "F.abs(F.col('access_deviation')) / (F.col('state_avg_access') + 0.01)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 11/15: Regional inequity magnitude relative to state average"
+    },
+    {
+      "output": "gold_compound_disadvantage",
+      "layer": "gold",
+      "inputs": ["gold_underserved_flag", "gold_vulnerability_score"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "compound_index",
+          "expression": "(F.col('gap_percentile') * 0.5 + F.coalesce(F.col('vulnerability_index'), F.lit(0)) * 0.5)"
+        },
+        {
+          "op": "withColumn",
+          "column": "compound_tier",
+          "expression": "F.when(F.col('compound_index') > 0.7, 'Extreme').when(F.col('compound_index') > 0.5, 'High').when(F.col('compound_index') > 0.3, 'Moderate').otherwise('Low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 12/15: Compound disadvantage index combining underserved and vulnerability"
+    },
+    {
+      "output": "gold_temporal_stability",
+      "layer": "gold",
+      "inputs": ["silver_regional_demographics", "silver_provider_density"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "stability_score",
+          "expression": "(F.coalesce(F.col('population_count'), F.lit(0)) / 1000 + F.coalesce(F.col('total_providers'), F.lit(0)) / 10) / 2"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 13/15: Temporal stability score for regional healthcare infrastructure"
+    },
+    {
+      "output": "gold_integrated_ranking",
+      "layer": "gold",
+      "inputs": ["gold_care_accessibility", "gold_need_supply_gap", "gold_compound_disadvantage"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "composite_score",
+          "expression": "F.coalesce(F.col('accessibility_composite'), F.lit(0)) * 0.4 - F.col('gap_magnitude') * 0.3 - F.coalesce(F.col('compound_index'), F.lit(0)) * 0.3"
+        },
+        {
+          "op": "withColumn",
+          "column": "national_percentile",
+          "expression": "F.percent_rank().over(W.orderBy(F.col('composite_score').desc()))"
+        },
+        {
+          "op": "withColumn",
+          "column": "tier",
+          "expression": "F.when(F.col('national_percentile') < 0.2, 'Top 20%').when(F.col('national_percentile') < 0.5, 'Above Average').when(F.col('national_percentile') < 0.8, 'Below Average').otherwise('Bottom 20%')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 14/15: Integrated regional ranking with national percentile"
+    },
+    {
+      "output": "gold_predictive_risk",
+      "layer": "gold",
+      "inputs": ["gold_need_supply_gap", "gold_temporal_stability", "gold_compound_disadvantage"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "deterioration_risk",
+          "expression": "(F.coalesce(F.col('gap_magnitude'), F.lit(0)) * 0.4 + (1 - F.coalesce(F.col('stability_score'), F.lit(0)) / 10) * 0.3 + F.coalesce(F.col('compound_index'), F.lit(0)) * 0.3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "risk_tier",
+          "expression": "F.when(F.col('deterioration_risk') > 0.8, 'Critical').when(F.col('deterioration_risk') > 0.6, 'High').when(F.col('deterioration_risk') > 0.4, 'Moderate').otherwise('Low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Gold 15/15: Predictive deterioration risk score"
+    },
+    {
+      "output": "metric_health_equity_index",
+      "layer": "metric",
+      "inputs": ["gold_integrated_ranking", "gold_care_accessibility", "gold_population_health_index"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "equity_index",
+          "expression": "(F.coalesce(F.col('accessibility_composite'), F.lit(0)) * 0.35 + F.coalesce(F.col('diversity_score'), F.lit(0)) * 0.25 - F.coalesce(F.col('health_burden_score'), F.lit(0)) / 100 * 0.20 + (1 - F.col('national_percentile')) * 0.20) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "equity_grade",
+          "expression": "F.when(F.col('equity_index') >= 80, 'A').when(F.col('equity_index') >= 60, 'B').when(F.col('equity_index') >= 40, 'C').when(F.col('equity_index') >= 20, 'D').otherwise('F')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 1: Health Equity Index by Region with letter grading"
+    },
+    {
+      "output": "metric_care_desert",
+      "layer": "metric",
+      "inputs": ["gold_underserved_flag", "gold_access_ratio", "gold_service_diversity"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "desert_score",
+          "expression": "(F.col('gap_percentile') * 0.4 + (1 / (F.coalesce(F.col('providers_per_1000'), F.lit(0.1)) + 0.1)) * 0.3 + (1 / (F.coalesce(F.col('service_diversity_index'), F.lit(0.1)) + 0.1)) * 0.3) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "desert_classification",
+          "expression": "F.when(F.col('desert_score') >= 80, 'Severe Desert').when(F.col('desert_score') >= 60, 'Moderate Desert').when(F.col('desert_score') >= 40, 'Mild Desert').otherwise('Adequate Coverage')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 2: Care Desert Score measuring medical service availability"
+    },
+    {
+      "output": "metric_sdoh_impact",
+      "layer": "metric",
+      "inputs": ["gold_vulnerability_score", "gold_compound_disadvantage"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "sdoh_impact_score",
+          "expression": "(F.coalesce(F.col('vulnerability_index'), F.lit(0)) * 0.5 + F.coalesce(F.col('compound_index'), F.lit(0)) * 0.5) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "sdoh_impact_tier",
+          "expression": "F.when(F.col('sdoh_impact_score') >= 70, 'Severe').when(F.col('sdoh_impact_score') >= 50, 'High').when(F.col('sdoh_impact_score') >= 30, 'Moderate').otherwise('Low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 3: Social Determinants Impact measurement"
+    },
+    {
+      "output": "metric_disparity_magnitude",
+      "layer": "metric",
+      "inputs": ["gold_regional_inequity", "gold_need_supply_gap", "gold_integrated_ranking"],
+      "operations": [
+        {
+          "op": "join",
+          "on": ["state", "zip", "county"],
+          "how": "left"
+        },
+        {
+          "op": "withColumn",
+          "column": "disparity_score",
+          "expression": "(F.coalesce(F.col('inequity_magnitude'), F.lit(0)) * 0.4 + F.abs(F.coalesce(F.col('gap_magnitude'), F.lit(0))) / 10 * 0.3 + F.col('national_percentile') * 0.3) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "disparity_tier",
+          "expression": "F.when(F.col('disparity_score') >= 75, 'Extreme').when(F.col('disparity_score') >= 50, 'High').when(F.col('disparity_score') >= 25, 'Moderate').otherwise('Low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "FINAL METRIC 4: Geographic Disparity Magnitude quantification"
+    }
+  ],
+  "summary": {
+    "total_transformations": 36,
+    "layers": {
+      "bronze": 11,
+      "silver": 6,
+      "gold": 15,
+      "metric": 4
+    },
+    "edges": 54,
+    "languages": ["pyspark"],
+    "final_metrics": [
+      "Health Equity Index by Region",
+      "Care Desert Score",
+      "Social Determinants Impact",
+      "Geographic Disparity Magnitude"
+    ]
+  }
+}

@@ -1,0 +1,206 @@
+\documentclass[9pt,letterpaper]{article}
+
+% Packages for enhanced formatting
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage{natbib}   % or biblatex depending on what you're using
+\bibliographystyle{plainnat}  % ex) plainnat, IEEEtran, etc.
+
+% Color definitions
+\definecolor{primaryblue}{RGB}{0,82,155}
+\definecolor{secondaryblue}{RGB}{65,131,215}
+\definecolor{lightgray}{RGB}{248,249,250}
+\definecolor{darkgray}{RGB}{73,80,87}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    urlcolor=primaryblue,
+    citecolor=primaryblue,
+    pdfauthor={Parth Pidadi, Seungmin Chou, Dhananjay Sharma, Junsung Rhee, Keun Young Yoon},
+    pdftitle={LLM-Guided Data Provenance: Human-Centric Transparency for Big Data Pipelines}
+}
+
+% Custom title formatting
+\titleformat{\section}
+{\color{primaryblue}\Large\bfseries}
+{\thesection.}{1em}{}[\vspace{-0.5em}\color{primaryblue}\rule{\textwidth}{0.5pt}]
+
+\titleformat{\subsection}
+{\color{secondaryblue}\large\bfseries}
+{\thesubsection}{1em}{}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{LLM-Guided Data Provenance}}
+\fancyhead[R]{\small AMS 560 -- Fall 2025}
+\fancyfoot[C]{\thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Custom boxes
+\tcbuselibrary{breakable}
+\newtcolorbox{keybox}[1]{
+    colback=lightgray,
+    colframe=primaryblue,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable,
+    enhanced,
+    attach boxed title to top left={yshift=-3mm,yshifttext=-1mm},
+    boxed title style={size=small,colback=primaryblue,coltext=white},
+}
+
+% Line spacing
+\setstretch{1.1}
+
+\begin{document}
+
+% Compact title section
+\begin{center}
+    {\LARGE\bfseries\color{primaryblue} LLM-Guided Data Provenance}\\[0.2cm]
+    {\Large\color{secondaryblue} Human-Centric Transparency for Big Data Pipelines}\\[0.4cm]
+
+    \begin{tcolorbox}[colback=lightgray,colframe=primaryblue,width=0.9\textwidth,arc=2mm,boxsep=3pt]
+        \centering
+        {\large\bfseries AMS 560, Fall 2025, Professor Zhenhua Liu}
+    \end{tcolorbox}
+
+    % \vspace{0.3cm}
+    {\small\bfseries Team Members:} Parth Pidadi (116237374), Seungmin Chou (116503435), Dhananjay Sharma (116740841), Junsung Rhee (116740814), Keun Young Yoon (116517818)
+\end{center}
+
+% \vspace{0.4cm}
+
+% Main content
+\section{Motivation and Problem}
+
+Modern data pipelines generate massive datasets from diverse sources, creating a strong demand for reliable lineage tracking. While solutions like OpenLineage capture lineage as Directed Acyclic Graphs (DAGs), analysts often struggle to interpret them due to data engineering errors, intentional obfuscation, or sheer complexity.
+
+We introduce DAG-to-RAG, a LLM-guided provenance platform that leverages Retrieval-Augmented Generation (RAG) to query relevant subgraphs, reducing hallucinations and improving interpretability. Using the Huawei OpenLineage dataset \cite{CHEN20241}, we compare DAG-to-RAG against traditional lineage exploration and base LLM, showing its potential to enhance transparency and ease the cognitive burden of analyzing complex data flows.
+
+% \begin{keybox}{Problem Statement}
+% \begin{itemize}[leftmargin=1.2em,itemsep=0.2em]
+%     \item \textbf{Complexity:} Column-level dependencies are buried in verbose lineage logs.
+%     \item \textbf{Auditability:} Compliance and reproducibility require explainable lineage.
+%     \item \textbf{Usability:} Non-experts (e.g., policy analysts) cannot interpret raw DAGs.
+% \end{itemize}
+% \end{keybox}
+
+\section{Proposed Solution}
+
+This project introduces an \textbf{LLM-Guided Data Provenance Platform} designed to capture and explain complex data processing tasks. The platform emphasizes transparency, reliability, and accessibility in data governance.
+
+\subsection{Core Components}
+
+\begin{description}[leftmargin=2em,itemsep=0.8em]
+    \item[\textcolor{primaryblue}{\textbf{Benchmark Data:}}]
+          We utilize the open dataset of data lineage graphs (DLG) introduced by \cite{CHEN20241}. In this dataset, data assets are represented as nodes (tables, columns, and SQL snippets), while relations are represented as edges (SQL transformations). This structure provides data-level provenance without exposing raw values, making it suitable as a reference benchmark for evaluating lineage capture and explanation.
+
+    \item[\textcolor{primaryblue}{\textbf{RAG-to-DAG:}}] An LLM model, enhanced with RAG to incorporate DAG originally suggested by \cite{hu-etal-2025-grag}, produces \textbf{human-readable summaries} of lineage paths. Relevant lineage segments are retrieved from the stored graph metadata and provided as a context after conversion to natural language. In consequence, each explanation is validated against the DAG structure, to reduce hallucinations and ensure greater faithfulness of the generated summaries.
+
+    \item[\textcolor{primaryblue}{\textbf{Lineage Capture:}}]
+          Lineage metadata is ingested and normalized into an \textbf{OpenLineage}-compatible schema, and stored in \textbf{Marquez} (backend and UI). In addition to the benchmark dataset, we plan to capture OpenLineage-compliant datasets from real-world sources, such as the NYC Taxi dataset \cite{sciencedirect2024} and the MIMIC-IV dataset \cite{johnson_mimic-iv_2023}, to demonstrate practical applicability.
+          % Each dataset, job, and column dependency is represented as a tracked entity, enabling visualization and querying across multiple levels of granularity.
+
+
+          % and if sufficient evidence is not found, the system explicitly responds with ``unknown.'' 
+
+\end{description}
+
+This solution enables efficient debugging, supports compliance validation, and enhances transparency for both technical and non-technical stakeholders.
+
+\section{Novelty and Contributions}
+There are three main directions of recent comparable development:
+
+1. Some initial attempts have emerged to embed DAG data in RAG frameworks \cite{hu-etal-2025-grag}, but they neither make lineage interpretable for non-technical users nor leverage conversational AI for interactive exploration.
+
+2. Open-source systems such as \textbf{OpenLineage}, \textbf{Marquez}, and \textbf{Spline} capture and visualize lineage metadata, but do not support interactive explanation AI in any form.
+
+3. In machine learning, provenance tools like ML Metadata \cite{ma_mlmd_2024} and DataHub \cite{bhardwaj2015datahub} manage artifacts and metadata at scale, yet remain catalogs and trackers without conversational or lineage-aware RAG integration.
+
+\textbf{Interactive Q\&A with Verification:}
+To the best of our knowledge, the proposed \emph{DAG-to-RAG} framework is the first to integrate DAGs into a RAG model while explicitly preserving their structural properties and transformation semantics.
+This enables stakeholders to interactively explore and understand complex lineage through conversational AI, with reduced risk of hallucination.
+
+\textbf{Concrete Dataset:} In addition, we will be implementing them on real world application with concrete dataset, such as NYC Taxi \cite{sciencedirect2024} and weather dataset, and the MIMIC-IV dataset \cite{johnson_mimic-iv_2023}, with which we will perform several ablation studies and present a demo.
+
+\textbf{Multi-Granular Summaries:} Lastly, we are performing Multi-Granular Summaries of several levels: Pipeline $\rightarrow$ Transform $\rightarrow$ Column, something not offered by existing tools. Go beyond static lineage visualizations.
+
+% Optionally we will include Spark metrics (e.g, shuffle size, skew) in summaries for optimization hints.
+
+In summary, our contributions lie in introducing the first conversational framework that integrates DAG-based lineage into RAG, supported by real datasets and multi-granular summaries, thereby advancing both interpretability and reliability in data provenance.
+
+% \section{Related Work and Competitors}
+
+% \subsection{Existing Solutions}
+% \begin{description} %[leftmargin=2em,itemsep=0.6em]
+%     \item[\textbf{OpenLineage + Marquez:}] Capture and visualize DAG lineage, but provide raw metadata only.
+%     \item[\textbf{Spline:}] Column-level lineage agent, but no natural-language explanations.
+%     \item[\textbf{Recent Literature (2024--2025):}] LLMs for explainable metadata parsing and summarization; Provenance in ML pipelines (e.g., MLMD, DataHub) but limited to technical audiences.
+% \end{description}
+
+% \subsection{Our Competitive Advantage}
+% Unlike existing tools, our system combines \textbf{verified LLM summaries + RAG Q\&A + DAG visualization}, making lineage accessible to both engineers and non-technical stakeholders.
+
+\section{Implementation Plan and Deliverables}
+
+\subsection{Development Timeline}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.20\linewidth} p{0.65\linewidth} p{0.12\linewidth}}
+        \toprule
+        \textbf{Stage}    & \textbf{Description}                                                  & \textbf{Week} \\
+        \midrule
+        Environment Setup & Docker Compose: Spark, Marquez, Postgres, UI                          & 1--2          \\
+        Lineage Capture   & Huawei benchmark dataset \textit{OR} lineage from $\geq 3$ Spark jobs & 3--4          \\
+        Summarization API & Multi-granular, verified summaries                                    & 5--6          \\
+        RAG Q\&A          & Retrieval + LLM answers with citations                                & 7--10         \\
+        Evaluation        & Overhead $<15\%$, Hallucination reduction $\geq 30\%$                 & 11--12        \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Final Deliverables}
+Our final deliverables will include a working prototype with a user interface that integrates lineage DAG visualization, multi-granular summaries, and a conversational chat component. We will also provide an evaluation report covering both system overhead and the quality of the generated summaries and Q\&A. Finally, we will prepare a slide deck along with a live demo for the final presentation.
+
+
+
+\section{Expected Impact and Evaluation Metrics}
+
+\noindent \textbf{Evaluation Metrics and Targets:}
+System overhead is expected to remain  $\leq 15\%$ (runtime comparison).
+Hallucination rate reduction $\geq 30\%$.
+Query response time must be $\leq 5$ seconds (automated testing).
+\vspace{0.2cm}
+
+This project represents a significant step forward in making data lineage transparent,
+verifiable, and accessible to diverse stakeholders in modern data-driven organizations.
+
+
+% Bibliography (if needed)
+% \begin{thebibliography}{1}
+% \bibitem{sciencedirect2024}
+% ScienceDirect. (2024). NYC Taxi + Weather dataset: Integrated mobility and environmental analytics. \textit{Journal of Big Data Applications}, 12(3), 145--162.
+% \end{thebibliography}
+\bibliography{main}
+
+\end{document}

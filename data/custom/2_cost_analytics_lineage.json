@@ -1,0 +1,691 @@
+{
+  "notebook": "2_cost_analytics_revised",
+  "description": "Cost Analytics Deep Dive - Vertically Complex Cost Intelligence Pipeline with 15 Gold Layers → 4 Final Metrics",
+  "transformations": [
+    {
+      "output": "silver_encounter_costs",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence"
+      ],
+      "inputs": ["bronze_condition"],
+      "operations": [
+        {
+          "op": "filter",
+          "condition": "F.col('visit_occurrence_id').isNotNull()"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id", "visit_occurrence_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "conditions_per_encounter", "function": "count(*)"},
+            {"alias": "unique_conditions_per_encounter", "function": "countDistinct(condition_concept_id)"},
+            {"alias": "encounter_date", "function": "min(condition_start_date)"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "encounter_base_cost",
+          "expression": "F.when(F.col('conditions_per_encounter') >= 5, 5000).when(F.col('conditions_per_encounter') >= 3, 2000).otherwise(500)"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_encounter_cost", "function": "sum(encounter_base_cost)"},
+            {"alias": "encounter_count", "function": "count(*)"},
+            {"alias": "avg_conditions_per_encounter", "function": "avg(conditions_per_encounter)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT person_id, SUM(encounter_base_cost) AS total_encounter_cost, COUNT(*) AS encounter_count, AVG(conditions_per_encounter) AS avg_conditions_per_encounter FROM (SELECT person_id, visit_occurrence_id, COUNT(*) AS conditions_per_encounter, CASE WHEN COUNT(*) >= 5 THEN 5000 WHEN COUNT(*) >= 3 THEN 2000 ELSE 500 END AS encounter_base_cost FROM bronze_condition WHERE visit_occurrence_id IS NOT NULL GROUP BY person_id, visit_occurrence_id) GROUP BY person_id",
+      "description": "Encounter-level costs derived from condition occurrences with tiered pricing"
+    },
+    {
+      "output": "silver_procedure_costs",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence"
+      ],
+      "inputs": ["bronze_procedure"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "procedure_cost_estimate",
+          "expression": "F.when(F.col('procedure_concept_id') < 4000000, 1500).when(F.col('procedure_concept_id') < 4100000, 5000).otherwise(15000)"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_procedure_cost", "function": "sum(procedure_cost_estimate)"},
+            {"alias": "procedure_count", "function": "count(*)"},
+            {"alias": "unique_procedures", "function": "countDistinct(procedure_concept_id)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT person_id, SUM(CASE WHEN procedure_concept_id < 4000000 THEN 1500 WHEN procedure_concept_id < 4100000 THEN 5000 ELSE 15000 END) AS total_procedure_cost, COUNT(*) AS procedure_count, COUNT(DISTINCT procedure_concept_id) AS unique_procedures FROM bronze_procedure GROUP BY person_id",
+      "description": "Procedure-level costs with concept-based cost estimation"
+    },
+    {
+      "output": "silver_drug_costs",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure"
+      ],
+      "inputs": ["bronze_drug"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "drug_unit_cost",
+          "expression": "F.when(F.col('drug_concept_id') < 40000000, 25).when(F.col('drug_concept_id') < 45000000, 150).otherwise(800)"
+        },
+        {
+          "op": "withColumn",
+          "column": "drug_total_cost",
+          "expression": "F.col('drug_unit_cost') * F.coalesce(F.col('quantity'), F.lit(30))"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_drug_cost", "function": "sum(drug_total_cost)"},
+            {"alias": "prescription_count", "function": "count(*)"},
+            {"alias": "total_days_supply", "function": "sum(days_supply)"},
+            {"alias": "unique_drugs", "function": "countDistinct(drug_concept_id)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT person_id, SUM(drug_unit_cost * COALESCE(quantity, 30)) AS total_drug_cost, COUNT(*) AS prescription_count, SUM(days_supply) AS total_days_supply, COUNT(DISTINCT drug_concept_id) AS unique_drugs FROM bronze_drug GROUP BY person_id",
+      "description": "Drug-level costs with concept-based pricing and quantity adjustment"
+    },
+    {
+      "output": "silver_condition_costs",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence"
+      ],
+      "inputs": ["bronze_condition"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "condition_cost_weight",
+          "expression": "F.when(F.col('condition_concept_id') < 300000, 500).when(F.col('condition_concept_id') < 400000, 2000).otherwise(5000)"
+        },
+        {
+          "op": "groupBy",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "total_condition_cost", "function": "sum(condition_cost_weight)"},
+            {"alias": "condition_count", "function": "count(*)"},
+            {"alias": "unique_conditions", "function": "countDistinct(condition_concept_id)"}
+          ]
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT person_id, SUM(CASE WHEN condition_concept_id < 300000 THEN 500 WHEN condition_concept_id < 400000 THEN 2000 ELSE 5000 END) AS total_condition_cost, COUNT(*) AS condition_count, COUNT(DISTINCT condition_concept_id) AS unique_conditions FROM bronze_condition GROUP BY person_id",
+      "description": "Condition-related costs with severity-based weighting"
+    },
+    {
+      "output": "silver_demographics",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.observation_period",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.death"
+      ],
+      "inputs": ["bronze_person", "bronze_observation_period", "bronze_death"],
+      "operations": [
+        {
+          "op": "join",
+          "left_table": "bronze_person",
+          "right_table": "bronze_observation_period",
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "join",
+          "left_table": "result",
+          "right_table": "bronze_death",
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "select",
+          "columns": ["person_id", "gender_concept_id", "year_of_birth", "race_concept_id"]
+        },
+        {
+          "op": "withColumn",
+          "column": "age",
+          "expression": "2024 - F.col('year_of_birth')"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_deceased",
+          "expression": "F.when(F.col('death_date').isNotNull(), 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "observation_days",
+          "expression": "F.datediff(F.col('observation_period_end_date'), F.col('observation_period_start_date'))"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT p.person_id, p.gender_concept_id, p.year_of_birth, p.race_concept_id, 2024 - p.year_of_birth AS age, CASE WHEN d.death_date IS NOT NULL THEN 1 ELSE 0 END AS is_deceased, DATEDIFF(op.observation_period_end_date, op.observation_period_start_date) AS observation_days FROM bronze_person p LEFT JOIN bronze_observation_period op ON p.person_id = op.person_id LEFT JOIN bronze_death d ON p.person_id = d.person_id",
+      "description": "Demographics enriched with observation period and mortality status"
+    },
+    {
+      "output": "silver_payer_info",
+      "layer": "silver",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.payer_plan_period"
+      ],
+      "inputs": ["bronze_payer"],
+      "operations": [
+        {
+          "op": "groupBy",
+          "columns": ["person_id"]
+        },
+        {
+          "op": "agg",
+          "aggregations": [
+            {"alias": "insurance_plan_count", "function": "countDistinct(payer_plan_period_id)"},
+            {"alias": "first_coverage_date", "function": "min(payer_plan_period_start_date)"},
+            {"alias": "last_coverage_date", "function": "max(payer_plan_period_end_date)"},
+            {"alias": "total_coverage_days", "function": "sum(datediff(payer_plan_period_end_date, payer_plan_period_start_date))"}
+          ]
+        },
+        {
+          "op": "withColumn",
+          "column": "coverage_continuity",
+          "expression": "F.when(F.col('insurance_plan_count') == 1, 'stable').when(F.col('insurance_plan_count') <= 3, 'moderate').otherwise('fragmented')"
+        }
+      ],
+      "language": "pyspark",
+      "sql_equivalent": "SELECT person_id, COUNT(DISTINCT payer_plan_period_id) AS insurance_plan_count, MIN(payer_plan_period_start_date) AS first_coverage_date, MAX(payer_plan_period_end_date) AS last_coverage_date, SUM(DATEDIFF(payer_plan_period_end_date, payer_plan_period_start_date)) AS total_coverage_days, CASE WHEN COUNT(DISTINCT payer_plan_period_id) = 1 THEN 'stable' WHEN COUNT(DISTINCT payer_plan_period_id) <= 3 THEN 'moderate' ELSE 'fragmented' END AS coverage_continuity FROM bronze_payer GROUP BY person_id",
+      "description": "Insurance coverage analysis with continuity classification"
+    },
+    {
+      "output": "gold_l1_base_costs",
+      "layer": "gold",
+      "sources": [
+        "bigquery-public-data.cms_synthetic_patient_data_omop.person",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.condition_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.procedure_occurrence",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.drug_exposure",
+        "bigquery-public-data.cms_synthetic_patient_data_omop.payer_plan_period"
+      ],
+      "inputs": ["silver_demographics", "silver_encounter_costs", "silver_procedure_costs", "silver_drug_costs", "silver_condition_costs", "silver_payer_info"],
+      "operations": [
+        {
+          "op": "join",
+          "tables": ["silver_demographics", "silver_encounter_costs", "silver_procedure_costs", "silver_drug_costs", "silver_condition_costs", "silver_payer_info"],
+          "on": "person_id",
+          "how": "left"
+        },
+        {
+          "op": "fillna",
+          "columns": ["total_encounter_cost", "total_procedure_cost", "total_drug_cost", "total_condition_cost"],
+          "value": 0
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 1: Base cost integration joining all silver cost components"
+    },
+    {
+      "output": "gold_l2_direct_costs",
+      "layer": "gold",
+      "inputs": ["gold_l1_base_costs"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "total_direct_cost",
+          "expression": "F.col('total_encounter_cost') + F.col('total_procedure_cost') + F.col('total_drug_cost') + F.col('total_condition_cost')"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_source",
+          "expression": "F.lit('estimated')"
+        },
+        {
+          "op": "withColumn",
+          "column": "insurance_adjusted_cost",
+          "expression": "F.when(F.coalesce(F.col('insurance_plan_count'), F.lit(0)) > 0, F.col('total_direct_cost') * 0.8).otherwise(F.col('total_direct_cost'))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 2: Total direct costs aggregation with insurance adjustment"
+    },
+    {
+      "output": "gold_l3_indirect_costs",
+      "layer": "gold",
+      "inputs": ["gold_l2_direct_costs"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "administrative_overhead",
+          "expression": "F.col('total_direct_cost') * 0.15"
+        },
+        {
+          "op": "withColumn",
+          "column": "coordination_cost",
+          "expression": "F.coalesce(F.col('encounter_count'), F.lit(0)) * 50 + F.coalesce(F.col('unique_procedures'), F.lit(0)) * 75"
+        },
+        {
+          "op": "withColumn",
+          "column": "pharmacy_management_cost",
+          "expression": "F.coalesce(F.col('prescription_count'), F.lit(0)) * 25"
+        },
+        {
+          "op": "withColumn",
+          "column": "total_indirect_cost",
+          "expression": "F.col('administrative_overhead') + F.col('coordination_cost') + F.col('pharmacy_management_cost')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 3: Indirect and administrative cost calculations"
+    },
+    {
+      "output": "gold_l4_time_adjusted",
+      "layer": "gold",
+      "inputs": ["gold_l3_indirect_costs"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "observation_years",
+          "expression": "F.coalesce(F.col('observation_days'), F.lit(365)) / 365.0"
+        },
+        {
+          "op": "withColumn",
+          "column": "annualized_direct_cost",
+          "expression": "F.col('total_direct_cost') / F.greatest(F.col('observation_years'), F.lit(0.5))"
+        },
+        {
+          "op": "withColumn",
+          "column": "annualized_indirect_cost",
+          "expression": "F.col('total_indirect_cost') / F.greatest(F.col('observation_years'), F.lit(0.5))"
+        },
+        {
+          "op": "withColumn",
+          "column": "annualized_total_cost",
+          "expression": "F.col('annualized_direct_cost') + F.col('annualized_indirect_cost')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 4: Time-adjusted annualized cost calculations"
+    },
+    {
+      "output": "gold_l5_age_adjusted",
+      "layer": "gold",
+      "inputs": ["gold_l4_time_adjusted"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "age_risk_multiplier",
+          "expression": "F.when(F.col('age') >= 85, 3.5).when(F.col('age') >= 75, 2.8).when(F.col('age') >= 65, 2.0).when(F.col('age') >= 50, 1.3).otherwise(1.0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "expected_cost_for_age",
+          "expression": "F.lit(5000) * F.col('age_risk_multiplier')"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_vs_expected",
+          "expression": "F.col('annualized_total_cost') / F.greatest(F.col('expected_cost_for_age'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "age_adjusted_excess_cost",
+          "expression": "F.greatest(F.col('annualized_total_cost') - F.col('expected_cost_for_age'), F.lit(0))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 5: Age-risk adjusted cost calculations with expected cost benchmarking"
+    },
+    {
+      "output": "gold_l6_complexity",
+      "layer": "gold",
+      "inputs": ["gold_l5_age_adjusted"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "clinical_complexity_score",
+          "expression": "(F.coalesce(F.col('unique_conditions'), F.lit(0)) * 2.0) + (F.coalesce(F.col('unique_procedures'), F.lit(0)) * 1.5) + (F.coalesce(F.col('unique_drugs'), F.lit(0)) * 1.0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_tier",
+          "expression": "F.when(F.col('clinical_complexity_score') >= 50, 'very_high').when(F.col('clinical_complexity_score') >= 30, 'high').when(F.col('clinical_complexity_score') >= 15, 'moderate').when(F.col('clinical_complexity_score') >= 5, 'low').otherwise('minimal')"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_cost_multiplier",
+          "expression": "F.when(F.col('complexity_tier') == 'very_high', 2.5).when(F.col('complexity_tier') == 'high', 1.8).when(F.col('complexity_tier') == 'moderate', 1.3).otherwise(1.0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_adjusted_cost",
+          "expression": "F.col('annualized_total_cost') / F.col('complexity_cost_multiplier')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 6: Clinical complexity scoring and tier classification"
+    },
+    {
+      "output": "gold_l7_efficiency",
+      "layer": "gold",
+      "inputs": ["gold_l6_complexity"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "cost_per_encounter",
+          "expression": "F.col('total_direct_cost') / F.greatest(F.coalesce(F.col('encounter_count'), F.lit(1)), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_per_condition",
+          "expression": "F.col('total_direct_cost') / F.greatest(F.coalesce(F.col('unique_conditions'), F.lit(1)), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "drug_cost_ratio",
+          "expression": "F.col('total_drug_cost') / F.greatest(F.col('total_direct_cost'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "procedure_cost_ratio",
+          "expression": "F.col('total_procedure_cost') / F.greatest(F.col('total_direct_cost'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "utilization_efficiency_score",
+          "expression": "100 - F.least((F.col('drug_cost_ratio') * 50) + (F.col('procedure_cost_ratio') * 50), F.lit(100))"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 7: Utilization efficiency metrics and cost ratios"
+    },
+    {
+      "output": "gold_l8_distribution",
+      "layer": "gold",
+      "inputs": ["gold_l7_efficiency"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "cost_z_score",
+          "expression": "(F.col('annualized_total_cost') - mean_cost) / std_cost"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_percentile_tier",
+          "expression": "F.when(F.col('annualized_total_cost') >= p90_cost, 'top_10').when(F.col('annualized_total_cost') >= p75_cost, 'top_25').when(F.col('annualized_total_cost') >= median_cost, 'above_median').otherwise('below_median')"
+        },
+        {
+          "op": "withColumn",
+          "column": "is_statistical_outlier",
+          "expression": "F.when(F.abs(F.col('cost_z_score')) >= 3.0, 1).otherwise(0)"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 8: Statistical distribution analysis with z-scores and percentile tiers"
+    },
+    {
+      "output": "gold_l9_trajectory",
+      "layer": "gold",
+      "inputs": ["gold_l8_distribution"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "cost_growth_factor",
+          "expression": "F.when(F.col('age') >= 75, 1.15).when(F.col('age') >= 65, 1.10).when(F.col('age') >= 50, 1.05).otherwise(1.03)"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_growth_factor",
+          "expression": "F.when(F.col('complexity_tier') == 'very_high', 1.20).when(F.col('complexity_tier') == 'high', 1.12).when(F.col('complexity_tier') == 'moderate', 1.05).otherwise(1.00)"
+        },
+        {
+          "op": "withColumn",
+          "column": "projected_cost_1yr",
+          "expression": "F.col('annualized_total_cost') * F.col('cost_growth_factor') * F.col('complexity_growth_factor')"
+        },
+        {
+          "op": "withColumn",
+          "column": "projected_cost_3yr",
+          "expression": "F.col('annualized_total_cost') * F.pow(F.col('cost_growth_factor') * F.col('complexity_growth_factor'), 3)"
+        },
+        {
+          "op": "withColumn",
+          "column": "trajectory_slope",
+          "expression": "(F.col('projected_cost_3yr') - F.col('annualized_total_cost')) / 3.0"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 9: Cost trajectory modeling with 1-year and 3-year projections"
+    },
+    {
+      "output": "gold_l10_outcomes",
+      "layer": "gold",
+      "inputs": ["gold_l9_trajectory"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "encounter_intensity",
+          "expression": "F.coalesce(F.col('encounter_count'), F.lit(0)) / F.greatest(F.col('observation_days'), F.lit(1)) * 365"
+        },
+        {
+          "op": "withColumn",
+          "column": "chronic_disease_burden",
+          "expression": "F.coalesce(F.col('unique_conditions'), F.lit(0)) * F.coalesce(F.col('condition_count'), F.lit(0)) / 10.0"
+        },
+        {
+          "op": "withColumn",
+          "column": "medication_burden_score",
+          "expression": "F.coalesce(F.col('unique_drugs'), F.lit(0)) * F.coalesce(F.col('prescription_count'), F.lit(0)) / 5.0"
+        },
+        {
+          "op": "withColumn",
+          "column": "mortality_risk",
+          "expression": "F.col('is_deceased') * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "overall_health_proxy",
+          "expression": "100 - F.least((F.col('encounter_intensity') * 10) + (F.col('chronic_disease_burden') * 2) + (F.col('medication_burden_score') * 1.5) + (F.col('mortality_risk') * 0.5), F.lit(100))"
+        },
+        {
+          "op": "withColumn",
+          "column": "health_status_category",
+          "expression": "F.when(F.col('overall_health_proxy') >= 70, 'good').when(F.col('overall_health_proxy') >= 40, 'fair').otherwise('poor')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 10: Outcome proxy development with health status categorization"
+    },
+    {
+      "output": "gold_l11_effectiveness",
+      "layer": "gold",
+      "inputs": ["gold_l10_outcomes"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "cost_per_health_unit",
+          "expression": "F.col('annualized_total_cost') / F.greatest(F.col('overall_health_proxy'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "efficiency_vs_complexity",
+          "expression": "F.col('utilization_efficiency_score') / F.greatest(F.col('clinical_complexity_score'), F.lit(1))"
+        },
+        {
+          "op": "withColumn",
+          "column": "value_score",
+          "expression": "(F.col('overall_health_proxy') / F.greatest(F.col('annualized_total_cost'), F.lit(1))) * 1000"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_effectiveness_tier",
+          "expression": "F.when(F.col('value_score') >= 5.0, 'high_value').when(F.col('value_score') >= 2.0, 'moderate_value').otherwise('low_value')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 11: Cost-effectiveness calculation and value scoring"
+    },
+    {
+      "output": "gold_l12_risk",
+      "layer": "gold",
+      "inputs": ["gold_l11_effectiveness"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "high_cost_flag",
+          "expression": "F.when(F.col('cost_percentile_tier') == 'top_10', 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_volatility_flag",
+          "expression": "F.when(F.col('is_statistical_outlier') == 1, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "rising_cost_flag",
+          "expression": "F.when(F.col('trajectory_slope') >= 5000, 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "complexity_cost_mismatch_flag",
+          "expression": "F.when((F.col('complexity_tier').isin(['minimal', 'low'])) & (F.col('cost_percentile_tier') == 'top_10'), 1).otherwise(0)"
+        },
+        {
+          "op": "withColumn",
+          "column": "financial_risk_score",
+          "expression": "(F.col('high_cost_flag') * 3) + (F.col('cost_volatility_flag') * 2) + (F.col('rising_cost_flag') * 2) + (F.col('complexity_cost_mismatch_flag') * 1)"
+        },
+        {
+          "op": "withColumn",
+          "column": "financial_risk_tier",
+          "expression": "F.when(F.col('financial_risk_score') >= 6, 'critical').when(F.col('financial_risk_score') >= 4, 'high').when(F.col('financial_risk_score') >= 2, 'moderate').otherwise('low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 12: Financial risk stratification with multi-factor risk scoring"
+    },
+    {
+      "output": "gold_l13_metric1_tcoc",
+      "layer": "gold",
+      "inputs": ["gold_l12_risk"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "total_cost_of_care_index",
+          "expression": "(F.col('annualized_total_cost') * 0.50) + (F.col('age_adjusted_excess_cost') * 0.20) + (F.col('projected_cost_1yr') * 0.20) + (F.col('total_indirect_cost') * 0.10)"
+        },
+        {
+          "op": "withColumn",
+          "column": "tcoc_percentile",
+          "expression": "F.percent_rank().over(W.orderBy('total_cost_of_care_index')) * 100"
+        },
+        {
+          "op": "withColumn",
+          "column": "tcoc_category",
+          "expression": "F.when(F.col('tcoc_percentile') >= 90, 'very_high').when(F.col('tcoc_percentile') >= 75, 'high').when(F.col('tcoc_percentile') >= 50, 'moderate').when(F.col('tcoc_percentile') >= 25, 'low').otherwise('very_low')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 13: FINAL METRIC 1 - Total Cost of Care Index with weighted components"
+    },
+    {
+      "output": "gold_l14_metric2_ces",
+      "layer": "gold",
+      "inputs": ["gold_l13_metric1_tcoc"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "cost_effectiveness_score",
+          "expression": "(F.col('value_score') * 0.40) + (F.col('utilization_efficiency_score') * 0.30) + ((100 - F.col('cost_per_health_unit') / 100) * 0.20) + (F.col('efficiency_vs_complexity') * 10 * 0.10)"
+        },
+        {
+          "op": "withColumn",
+          "column": "ces_normalized",
+          "expression": "F.least(F.greatest(F.col('cost_effectiveness_score'), F.lit(0)), F.lit(100))"
+        },
+        {
+          "op": "withColumn",
+          "column": "ces_grade",
+          "expression": "F.when(F.col('ces_normalized') >= 80, 'A').when(F.col('ces_normalized') >= 60, 'B').when(F.col('ces_normalized') >= 40, 'C').when(F.col('ces_normalized') >= 20, 'D').otherwise('F')"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 14: FINAL METRIC 2 - Cost-Effectiveness Score with letter grading"
+    },
+    {
+      "output": "gold_l15_metrics_34",
+      "layer": "gold",
+      "inputs": ["gold_l14_metric2_ces"],
+      "operations": [
+        {
+          "op": "withColumn",
+          "column": "financial_risk_stratification",
+          "expression": "(F.col('financial_risk_score') * 0.35) + (F.when(F.col('cost_percentile_tier') == 'top_10', 10).when(F.col('cost_percentile_tier') == 'top_25', 7).otherwise(3) * 0.25) + (F.when(F.col('complexity_tier') == 'very_high', 8).when(F.col('complexity_tier') == 'high', 6).otherwise(2) * 0.20) + (F.when(F.col('health_status_category') == 'poor', 10).when(F.col('health_status_category') == 'fair', 5).otherwise(1) * 0.20)"
+        },
+        {
+          "op": "withColumn",
+          "column": "frs_level",
+          "expression": "F.when(F.col('financial_risk_stratification') >= 8.0, 'critical').when(F.col('financial_risk_stratification') >= 6.0, 'high').when(F.col('financial_risk_stratification') >= 4.0, 'moderate').when(F.col('financial_risk_stratification') >= 2.0, 'low').otherwise('minimal')"
+        },
+        {
+          "op": "withColumn",
+          "column": "cost_trajectory_projection",
+          "expression": "(F.col('trajectory_slope') * 0.40) + ((F.col('projected_cost_3yr') - F.col('annualized_total_cost')) * 0.30) + (F.col('age_adjusted_excess_cost') * 0.20) + (F.when(F.col('rising_cost_flag') == 1, 5000).otherwise(0) * 0.10)"
+        },
+        {
+          "op": "withColumn",
+          "column": "ctp_direction",
+          "expression": "F.when(F.col('cost_trajectory_projection') >= 10000, 'steep_increase').when(F.col('cost_trajectory_projection') >= 5000, 'moderate_increase').when(F.col('cost_trajectory_projection') >= 1000, 'slight_increase').when(F.col('cost_trajectory_projection') >= -1000, 'stable').otherwise('decreasing')"
+        },
+        {
+          "op": "withColumn",
+          "column": "processing_timestamp",
+          "expression": "F.current_timestamp()"
+        }
+      ],
+      "language": "pyspark",
+      "description": "Level 15: FINAL METRICS 3 & 4 - Financial Risk Stratification and Cost Trajectory Projection"
+    }
+  ],
+  "summary": {
+    "total_transformations": 33,
+    "layers": {
+      "bronze": 12,
+      "silver": 6,
+      "gold": 15
+    },
+    "edges": 28,
+    "languages": ["pyspark"],
+    "final_metrics": [
+      "Total Cost of Care Index (TCOC)",
+      "Cost-Effectiveness Score (CES)",
+      "Financial Risk Stratification (FRS)",
+      "Cost Trajectory Projection (CTP)"
+    ]
+  }
+}

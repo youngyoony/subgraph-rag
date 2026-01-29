@@ -1,0 +1,338 @@
+[
+  {
+    "id": "bigquery/provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014",
+    "texts": [
+      "provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014",
+      "Layer: silver",
+      "Namespace: bigquery",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: bigquery-public-data.cms_medicare.inpatient_charges_2014"
+    ]
+  },
+  {
+    "id": "bigquery/provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014",
+    "texts": [
+      "provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014",
+      "Layer: silver",
+      "Namespace: bigquery",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: bigquery-public-data.cms_medicare.outpatient_charges_2014"
+    ]
+  },
+  {
+    "id": "bigquery/provenance-sandbox-10192025.cms_demo.silver_quality_features",
+    "texts": [
+      "provenance-sandbox-10192025.cms_demo.silver_quality_features",
+      "Layer: silver",
+      "Namespace: bigquery",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: bigquery-public-data.cms_medicare.hospital_general_info"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_condition_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_condition_costs",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_condition_occurrence",
+      "Feeds into: gold_l1_base_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_encounter_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_encounter_costs",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_condition_occurrence",
+      "Feeds into: gold_l1_base_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedure_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedure_costs",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_procedure_occurrence",
+      "Feeds into: gold_l1_base_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_payer_info",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_payer_info",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_payer_plan_period",
+      "Feeds into: gold_l1_base_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_demographics",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 2",
+      "Consumes: bronze_omop_death, bronze_omop_observation_period, bronze_omop_person",
+      "Feeds into: gold_l1_base_costs, gold_patient_journey"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_drug_costs",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_drug_costs",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_drug_exposure",
+      "Feeds into: gold_l1_base_costs"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_regional_demographics",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 4",
+      "Consumes: bronze_omop_person, bronze_omop_location",
+      "Feeds into: gold_access_ratio, gold_population_health_index, gold_quality_access, gold_utilization_intensity"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_density",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 2",
+      "Consumes: bronze_omop_care_site, bronze_omop_provider, bronze_omop_location",
+      "Feeds into: gold_access_ratio, gold_service_diversity"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_health_outcomes",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 1",
+      "Consumes: bronze_omop_person, bronze_omop_location, bronze_omop_condition_occurrence",
+      "Feeds into: gold_population_health_index"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_facility_access",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_facility_access",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_medicare_hospital_general_info",
+      "Feeds into: gold_quality_access"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_service_utilization",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 5, Outgoing: 1",
+      "Consumes: bronze_omop_procedure_occurrence, bronze_omop_drug_exposure, bronze_omop_person, bronze_omop_location, bronze_omop_condition_occurrence",
+      "Feeds into: gold_utilization_intensity"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh_indicators",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh_indicators",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "Feeds into: gold_vulnerability_score"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_sdoh",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_dual_dual_eligible_enrollment_by_county_and_program",
+      "Feeds into: gold_healthcare_access"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedures",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_procedures",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_procedure_occurrence",
+      "Feeds into: gold_patient_journey"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/demographics",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/demographics",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: omop_person.csv"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/procedures",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/procedures",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 0",
+      "Consumes: omop_procedure_occurrence.csv"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_utilization",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 5, Outgoing: 2",
+      "Consumes: bronze_medicare_physicians_and_other_supplier_2014, bronze_omop_procedure_occurrence, bronze_omop_drug_exposure, silver_member_enrollment, bronze_omop_condition_occurrence",
+      "Feeds into: gold_l1_member_profile, silver_risk_scores"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_cost_by_payer",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 2",
+      "Consumes: bronze_omop_cost, bronze_omop_payer_plan_period",
+      "Feeds into: gold_l1_member_profile, silver_plan_features"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_member_enrollment",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 3",
+      "Consumes: bronze_omop_payer_plan_period, bronze_omop_observation_period, bronze_omop_person",
+      "Feeds into: gold_l1_member_profile, silver_risk_scores, silver_utilization"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_risk_scores",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: silver_utilization, silver_member_enrollment",
+      "Feeds into: gold_l1_member_profile"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_attribution",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: bronze_omop_provider, bronze_omop_condition_occurrence",
+      "Feeds into: gold_l1_member_profile"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_plan_features",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: bronze_omop_payer_plan_period, silver_cost_by_payer",
+      "Feeds into: gold_l6_coverage"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_care_coordination",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 1",
+      "Consumes: bronze_omop_procedure_occurrence, bronze_omop_drug_exposure, bronze_omop_condition_occurrence",
+      "Feeds into: gold_coordination_effectiveness"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_referral_network",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: bronze_omop_procedure_occurrence, bronze_omop_drug_exposure",
+      "Feeds into: gold_network_connectivity"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_patient_outcomes",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 2",
+      "Consumes: bronze_omop_death, bronze_omop_person, bronze_omop_condition_occurrence",
+      "Feeds into: gold_outcome_tiers, gold_provider_master"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_demographics",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 2, Outgoing: 1",
+      "Consumes: bronze_omop_care_site, bronze_omop_provider",
+      "Feeds into: gold_provider_master"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_provider_activity",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 3, Outgoing: 3",
+      "Consumes: bronze_omop_procedure_occurrence, bronze_omop_drug_exposure, bronze_omop_condition_occurrence",
+      "Feeds into: gold_provider_master, gold_volume_metrics, gold_clinical_diversity"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_quality_indicators",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/output/silver/silver_quality_indicators",
+      "Layer: silver",
+      "Namespace: file",
+      "Incoming: 1, Outgoing: 1",
+      "Consumes: bronze_omop_condition_occurrence",
+      "Feeds into: gold_quality_subscores"
+    ]
+  }
+]

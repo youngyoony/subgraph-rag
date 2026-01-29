@@ -1,0 +1,642 @@
+[
+  {
+    "id": "bigquery/bigquery-public-data.cms_medicare.outpatient_charges_2014",
+    "texts": [
+      "bigquery-public-data.cms_medicare.outpatient_charges_2014",
+      "Layer: unknown",
+      "Namespace: bigquery",
+      "Incoming: 0, Outgoing: 3",
+      "Feeds into: provenance-sandbox-10192025.cms_demo.bronze_outpatient_2014, provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014, provenance-sandbox-10192025.cms_demo.silver_outpatient_hospital_2014"
+    ]
+  },
+  {
+    "id": "bigquery/bigquery-public-data.cms_medicare.hospital_general_info",
+    "texts": [
+      "bigquery-public-data.cms_medicare.hospital_general_info",
+      "Layer: unknown",
+      "Namespace: bigquery",
+      "Incoming: 0, Outgoing: 4",
+      "Feeds into: opportune-ruler-447319-b3.omop_work.bronze_hospital_general_info, provenance-sandbox-10192025.cms_demo.bronze_hospital_general_info, provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014, provenance-sandbox-10192025.cms_demo.silver_quality_features"
+    ]
+  },
+  {
+    "id": "bigquery/bigquery-public-data.cms_medicare.inpatient_charges_2014",
+    "texts": [
+      "bigquery-public-data.cms_medicare.inpatient_charges_2014",
+      "Layer: unknown",
+      "Namespace: bigquery",
+      "Incoming: 0, Outgoing: 3",
+      "Feeds into: provenance-sandbox-10192025.cms_demo.bronze_inpatient_2014, provenance-sandbox-10192025.cms_demo.gold_hospital_efficiency_2014, provenance-sandbox-10192025.cms_demo.silver_inpatient_hospital_2014"
+    ]
+  },
+  {
+    "id": "bigquery/bigquery-public-data.cms_codes.icd10_diagnoses_2019",
+    "texts": [
+      "bigquery-public-data.cms_codes.icd10_diagnoses_2019",
+      "Layer: unknown",
+      "Namespace: bigquery",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: provenance-sandbox-10192025.cms_demo.bronze_icd10_diagnoses_2019"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_inpatient_charges_2011.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_inpatient_charges_2011.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_medicare_inpatient_charges_2011"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_outpatient_charges_2011.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/medicare_outpatient_charges_2011.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_medicare_outpatient_charges_2011"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_care_site.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_care_site.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_care_site"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_condition_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_condition_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_condition_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_cost.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_cost.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_cost"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_death.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_death.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_death"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_drug_exposure.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_drug_exposure.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_drug_exposure"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_observation"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation_period.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_observation_period.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_observation_period"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_payer_plan_period.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_payer_plan_period.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_payer_plan_period"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_person.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_person.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_person"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_procedure_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/2_data/omop_procedure_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_procedure_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_dual_dual_eligible_enrollment_by_county_and_program"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_hospital_general_info.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_hospital_general_info.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_medicare_hospital_general_info"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_inpatient_charges_2011.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/medicare_inpatient_charges_2011.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_medicare_inpatient_charges_2011"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_care_site.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_care_site.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_care_site"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_condition_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_condition_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_condition_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_drug_exposure.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_drug_exposure.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_drug_exposure"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_location.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_location.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_location"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_observation_period.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_observation_period.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_observation_period"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_person.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_person.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_person"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_procedure_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_procedure_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_procedure_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_provider.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/3_data/omop_provider.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_provider"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_person.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 5",
+      "Feeds into: patient_journey, demographics, bronze_omop_person, bronze_person, person"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_procedure_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 5",
+      "Feeds into: patient_journey, procedures, bronze_omop_procedure_occurrence, bronze_procedure, procedure"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_concept.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_concept.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_concept, bronze_omop_concept"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_condition_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 3",
+      "Feeds into: bronze_condition, bronze_omop_condition_occurrence, condition"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_cost.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_cost.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_cost, bronze_omop_cost"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_death.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_death.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_death, bronze_omop_death"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_drug_exposure.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_drug_exposure.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_drug, bronze_omop_drug_exposure"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/dual_dual_eligible_enrollment_by_county_and_program.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_dual, bronze_dual_dual_eligible_enrollment_by_county_and_program"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd10_diagnoses_2019.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd10_diagnoses_2019.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_hcpcs_icd10_diagnoses_2019, bronze_icd10"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd9_diagnoses.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/hcpcs_icd9_diagnoses.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_hcpcs_icd9_diagnoses, bronze_icd9"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_inpatient_charges_2011.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_inpatient_charges_2011.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_inpatient, bronze_medicare_inpatient_charges_2011"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_outpatient_charges_2011.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_outpatient_charges_2011.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_medicare_outpatient_charges_2011, bronze_outpatient"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2012.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2012.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_medicare_physicians_and_other_supplier_2012, bronze_physician_2012"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2013.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2013.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_medicare_physicians_and_other_supplier_2013, bronze_physician_2013"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2014.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/medicare_physicians_and_other_supplier_2014.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_medicare_physicians_and_other_supplier_2014, bronze_physician_2014"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_nppes_healthcare_provider_taxonomy_code_set, bronze_taxonomy"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_observation.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/1_data/omop_observation.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 2",
+      "Feeds into: bronze_observation, bronze_omop_observation"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/inpatient_charges_2011.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/inpatient_charges_2011.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_medicare_inpatient_charges_2011"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/care_site.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/care_site.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_care_site"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/condition_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/condition_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_condition_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/cost.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/cost.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_cost"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/drug_exposure.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/drug_exposure.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_drug_exposure"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/observation_period.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/observation_period.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_observation_period"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/payer_plan_period.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/payer_plan_period.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_payer_plan_period"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/person.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/person.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_person"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/procedure_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/procedure_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_procedure_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/5_data/provider.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/5_data/provider.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_provider"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/medicare_physicians_and_other_supplier_2014.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/medicare_physicians_and_other_supplier_2014.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_medicare_physicians_and_other_supplier_2014"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/nppes_healthcare_provider_taxonomy_code_set.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_nppes_healthcare_provider_taxonomy_code_set"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_care_site.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_care_site.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_care_site"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_condition_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_condition_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_condition_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_death.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_death.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_death"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_drug_exposure.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_drug_exposure.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_drug_exposure"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_observation.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_observation.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_observation"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_person.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_person.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_person"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_procedure_occurrence.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_procedure_occurrence.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_procedure_occurrence"
+    ]
+  },
+  {
+    "id": "file//Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_provider.csv",
+    "texts": [
+      "/Users/dhananjaysharma/Desktop/provenance-local/4_data/omop_provider.csv",
+      "Layer: unknown",
+      "Namespace: file",
+      "Incoming: 0, Outgoing: 1",
+      "Feeds into: bronze_omop_provider"
+    ]
+  }
+]
